@@ -1,0 +1,687 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CGSpace publication finder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F5F7F4; --surface:#FFFFFF; --ink:#16211B; --muted:#56655C; --line:#D5DDD7;
+  --leaf:#1F5C4A; --leaf-soft:#E3EEE9; --mark:#F4D66E; --warn:#8A3B12; --warn-soft:#FBEDE4;
+  --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --serif:"Source Serif 4",Georgia,"Times New Roman",serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#111814; --surface:#18221D; --ink:#E6ECE8; --muted:#9AAAA1; --line:#2C3A33;
+    --leaf:#7CC4AA; --leaf-soft:#1F3129; --mark:#6B5A1A; --warn:#F2A578; --warn-soft:#3A2418;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#111814; --surface:#18221D; --ink:#E6ECE8; --muted:#9AAAA1; --line:#2C3A33;
+  --leaf:#7CC4AA; --leaf-soft:#1F3129; --mark:#6B5A1A; --warn:#F2A578; --warn-soft:#3A2418;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.55 var(--sans)}
+a{color:var(--leaf)}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--leaf);outline-offset:2px}
+
+header.top{padding:28px clamp(16px,4vw,40px) 20px;border-bottom:1px solid var(--line);background:var(--surface)}
+header.top h1{font-family:var(--serif);font-weight:600;font-size:clamp(26px,3.4vw,36px);line-height:1.15;margin:0}
+header.top p{margin:6px 0 0;color:var(--muted);max-width:68ch}
+
+.layout{display:grid;grid-template-columns:340px minmax(0,1fr);gap:0;min-height:calc(100vh - 120px)}
+@media (max-width:860px){.layout{grid-template-columns:1fr}}
+
+aside{border-right:1px solid var(--line);padding:22px 20px;background:var(--surface)}
+@media (max-width:860px){aside{border-right:0;border-bottom:1px solid var(--line)}}
+aside h2,main h2{font-size:16px;font-weight:600;margin:0 0 4px}
+.hint{color:var(--muted);font-size:13px;margin:0 0 12px}
+
+.field{display:flex;flex-direction:column;gap:4px;margin-bottom:10px}
+.field label{font-size:13px;color:var(--muted)}
+input[type=text],input[type=email],input[type=number],input[type=url],select,textarea{
+  width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:6px;background:var(--paper)
+}
+textarea{min-height:84px;resize:vertical;font-size:13px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:flex-end}
+.row>.field{flex:1 1 120px}
+
+.btn{border:1px solid var(--leaf);background:var(--leaf);color:#fff;padding:8px 14px;border-radius:6px;cursor:pointer;font-weight:500}
+:root[data-theme="dark"] .btn{color:#0E1612}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .btn{color:#0E1612}}
+.btn.ghost{background:transparent;color:var(--leaf)}
+.btn.small{padding:4px 10px;font-size:13px}
+.btn:disabled{opacity:.5;cursor:default}
+
+.people{list-style:none;margin:14px 0 0;padding:0;border-top:1px solid var(--line)}
+.people li{padding:10px 0;border-bottom:1px solid var(--line);display:grid;grid-template-columns:1fr auto;gap:2px 8px}
+.people .pname{font-weight:500}
+.people .pmail{font-size:13px;color:var(--muted);word-break:break-all}
+.people .pcount{grid-row:1;grid-column:2;font-variant-numeric:tabular-nums;font-size:13px;color:var(--muted);text-align:right}
+.people .pacts{grid-column:1/-1;display:flex;gap:10px;margin-top:4px}
+.linkbtn{background:none;border:0;padding:0;color:var(--leaf);cursor:pointer;font-size:13px;text-decoration:underline;text-underline-offset:2px}
+.linkbtn.danger{color:var(--warn)}
+.empty-people{color:var(--muted);font-size:13px;padding:12px 0}
+
+details{margin-top:18px;border-top:1px solid var(--line);padding-top:12px}
+summary{cursor:pointer;font-weight:500;font-size:14px}
+details[open] summary{margin-bottom:10px}
+
+main{padding:22px clamp(16px,3vw,36px) 48px;min-width:0}
+.searchbar{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px}
+.modes{display:flex;gap:0;border:1px solid var(--line);border-radius:6px;overflow:hidden;width:max-content;max-width:100%;margin-bottom:12px}
+.modes button{border:0;background:transparent;padding:6px 14px;cursor:pointer;font-size:14px;color:var(--muted)}
+.modes button[aria-pressed=true]{background:var(--leaf-soft);color:var(--ink);font-weight:500}
+.matchby[hidden]{display:none}
+.matchby{font-size:13px;color:var(--muted);display:flex;gap:14px;align-items:center;margin-top:4px}
+
+.notice{margin-top:14px;padding:10px 12px;border-radius:6px;background:var(--warn-soft);color:var(--warn);font-size:14px}
+.notice.info{background:var(--leaf-soft);color:var(--ink)}
+
+.person{margin-top:26px;display:flex;flex-wrap:wrap;gap:6px 28px;align-items:baseline;border-bottom:2px solid var(--ink);padding-bottom:12px}
+.person .who{font-family:var(--serif);font-size:28px;font-weight:600;line-height:1.2}
+.person .meta{color:var(--muted);font-size:14px;display:flex;gap:16px;flex-wrap:wrap}
+.person .total{margin-left:auto;font-variant-numeric:tabular-nums;font-size:14px;color:var(--muted)}
+.person .total strong{font-family:var(--serif);font-size:28px;color:var(--ink);font-weight:600;margin-right:4px}
+
+.years{margin-top:14px}
+.years .bars{display:flex;align-items:flex-end;gap:3px;height:70px;overflow-x:auto;padding-bottom:2px}
+.years .bar{flex:0 0 22px;background:var(--leaf);border-radius:2px 2px 0 0;position:relative;min-height:2px}
+.years .labels{display:flex;gap:3px;overflow-x:auto;font-size:11px;color:var(--muted)}
+.years .labels span{flex:0 0 22px;text-align:center}
+
+.toolbar{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin:14px 0 4px}
+.toolbar .status{color:var(--muted);font-size:14px}
+
+ol.results{list-style:none;margin:0;padding:0}
+ol.results li{padding:16px 0;border-bottom:1px solid var(--line)}
+.rtitle{font-family:var(--serif);font-size:18px;line-height:1.35;font-weight:600;margin:0 0 4px}
+.rtitle a{color:var(--ink);text-decoration:none}
+.rtitle a:hover{text-decoration:underline}
+.rauth{font-size:14px;color:var(--muted);margin:0 0 6px}
+.rauth mark{background:var(--mark);color:var(--ink);padding:0 2px;border-radius:2px}
+.rmeta{font-size:13px;display:flex;flex-wrap:wrap;gap:4px 14px;color:var(--muted)}
+.rtype{color:var(--ink);font-weight:500}
+
+.pager{display:flex;gap:10px;align-items:center;justify-content:center;margin-top:20px}
+.pager span{color:var(--muted);font-size:14px}
+
+.cands{margin-top:18px;padding:12px 14px;border:1px solid var(--line);border-radius:8px;background:var(--surface);font-size:14px}
+.cands p{margin:0 0 8px}
+.cands .chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.chip{border:1px solid var(--line);background:var(--paper);border-radius:999px;padding:3px 10px;cursor:pointer;font-size:13px}
+.chip[aria-pressed=true]{border-color:var(--leaf);background:var(--leaf-soft);font-weight:500}
+.start{margin-top:40px;max-width:60ch;color:var(--muted)}
+.start h2{font-family:var(--serif);font-size:22px;color:var(--ink);font-weight:600;margin-bottom:8px}
+.start ol{padding-left:20px}
+
+.table-wrap{overflow-x:auto}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <h1>CGSpace publication finder</h1>
+  <p>Look up research outputs on CGSpace by a colleague's email, author name or ORCID iD. CGSpace does not store emails, so the finder works out the author name from the email (e.g. e.kihoro → “Kihoro, E”) and shows you the matching names on CGSpace to confirm.</p>
+</header>
+
+<div class="layout">
+  <aside aria-labelledby="people-h">
+    <h2 id="people-h">People list</h2>
+    <p class="hint">Name as it appears on CGSpace (surname first works best, e.g. “Krupnik, T”). Saved only in this browser.</p>
+
+    <form id="addForm" autocomplete="off">
+      <div class="field"><label for="pName">Author name</label><input id="pName" type="text" required placeholder="Surname, Initial"></div>
+      <div class="field"><label for="pEmail">Email</label><input id="pEmail" type="email" required placeholder="name@cgiar.org"></div>
+      <div class="field"><label for="pOrcid">ORCID iD (optional)</label><input id="pOrcid" type="text" placeholder="0000-0000-0000-0000"></div>
+      <button class="btn small" type="submit">Add person</button>
+    </form>
+
+    <div class="row" style="margin-top:14px;justify-content:space-between">
+      <button class="btn ghost small" id="countAll" type="button">Count outputs for everyone</button>
+      <button class="btn ghost small" id="exportRoster" type="button">Download list</button>
+    </div>
+
+    <ul class="people" id="people"></ul>
+
+    <details>
+      <summary>Import people from CSV</summary>
+      <p class="hint">Columns: name, email, orcid. Put names containing commas in quotes, e.g. <code>"Krupnik, T",t.krupnik@cgiar.org,0000-0001-6973-0106</code></p>
+      <div class="field"><label for="csvFile">Upload a CSV file</label><input id="csvFile" type="file" accept=".csv,text/csv"></div>
+      <div class="field"><label for="csvText">Or paste rows</label><textarea id="csvText"></textarea></div>
+      <button class="btn small" id="importBtn" type="button">Import rows</button>
+    </details>
+
+    <details>
+      <summary>Connection settings</summary>
+      <p class="hint">If searches fail with a connection error, deploy the proxy file that comes with this dashboard and paste its address here, ending in <code>/server/api</code>.</p>
+      <div class="field"><label for="apiBase">CGSpace API address</label><input id="apiBase" type="url"></div>
+      <div class="row">
+        <button class="btn small" id="saveApi" type="button">Save address</button>
+        <button class="btn ghost small" id="testApi" type="button">Test connection</button>
+      </div>
+      <p class="hint" id="apiStatus" style="margin-top:8px"></p>
+    </details>
+  </aside>
+
+  <main>
+    <section class="searchbar" aria-label="Search">
+      <div class="modes" role="group" aria-label="Search by">
+        <button type="button" data-mode="email" aria-pressed="true">Email</button>
+        <button type="button" data-mode="name" aria-pressed="false">Author name</button>
+        <button type="button" data-mode="orcid" aria-pressed="false">ORCID iD</button>
+      </div>
+      <form id="searchForm" autocomplete="off">
+        <div class="row">
+          <div class="field" style="flex:3 1 260px">
+            <label for="q" id="qLabel">Email address</label>
+            <input id="q" type="text" list="emails" placeholder="name@cgiar.org">
+            <datalist id="emails"></datalist>
+          </div>
+          <div class="field" style="flex:0 1 100px"><label for="yFrom">From year</label><input id="yFrom" type="number" min="1970" max="2100" placeholder="Any"></div>
+          <div class="field" style="flex:0 1 100px"><label for="yTo">To year</label><input id="yTo" type="number" min="1970" max="2100" placeholder="Any"></div>
+          <div class="field" style="flex:0 1 150px"><label for="sort">Order</label>
+            <select id="sort"><option value="dc.date.issued,DESC">Newest first</option><option value="dc.date.issued,ASC">Oldest first</option><option value="">Best match</option></select>
+          </div>
+          <div class="field" style="flex:0 0 auto"><button class="btn" type="submit">Search CGSpace</button></div>
+        </div>
+        <div class="matchby" id="matchby" hidden>
+          Match this person by
+          <label><input type="radio" name="by" value="name" checked> author name</label>
+          <label><input type="radio" name="by" value="orcid"> ORCID iD</label>
+        </div>
+      </form>
+    </section>
+
+    <div id="notice" role="status" aria-live="polite"></div>
+    <div id="out">
+      <div class="start">
+        <h2>Find someone's outputs</h2>
+        <ol>
+          <li>Add colleagues to the people list, or import them from a CSV.</li>
+          <li>Type an email above and pick it from the suggestions.</li>
+          <li>Narrow by year, then download the results as a spreadsheet.</li>
+        </ol>
+        <p>You can also search any author name or ORCID iD without adding them first.</p>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>
+(function(){
+  const DEFAULT_API = "https://cgspace-proxy.ranargraphy3.workers.dev/server/api";
+  const OLD_DIRECT_API = "https://cgspace.cgiar.org/server/api";
+  const PAGE_SIZE = 20;
+  const EXPORT_CAP = 1000;
+
+  const $ = s => document.querySelector(s);
+  const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  const sleep = ms => new Promise(r => setTimeout(r, ms));
+  const store = {
+    get(k, d){ try{ const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; }catch(e){ return d; } },
+    set(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+  };
+
+  let roster = store.get("cgpf.roster", []);
+  if (!Array.isArray(roster)) roster = [];
+  let apiBase = store.get("cgpf.api", DEFAULT_API) || DEFAULT_API;
+  if (apiBase === OLD_DIRECT_API) apiBase = DEFAULT_API; // move older saved setting to the proxy
+  let mode = "email";
+  let current = null; // { person, by, page, totalPages, totalElements, years, sort, from, to }
+
+  /* ---------- people list ---------- */
+  const normEmail = e => String(e || "").trim().toLowerCase();
+  const normOrcid = o => { const m = String(o || "").match(/\d{4}-\d{4}-\d{4}-\d{3}[\dX]/i); return m ? m[0].toUpperCase() : ""; };
+
+  function saveRoster(){ store.set("cgpf.roster", roster); renderRoster(); }
+
+  function renderRoster(){
+    const ul = $("#people");
+    if (!roster.length){
+      ul.innerHTML = '<li class="empty-people" style="display:block">No one added yet.</li>';
+    } else {
+      ul.innerHTML = roster.map((p, i) => `
+        <li>
+          <span class="pname">${esc(p.name)}</span>
+          <span class="pcount">${p.count == null ? "" : esc(p.count) + " outputs"}</span>
+          <span class="pmail">${esc(p.email)}${p.orcid ? " · ORCID " + esc(p.orcid) : ""}</span>
+          <span class="pacts">
+            <button class="linkbtn" data-act="search" data-i="${i}" type="button">Show outputs</button>
+            <button class="linkbtn danger" data-act="remove" data-i="${i}" type="button">Remove</button>
+          </span>
+        </li>`).join("");
+    }
+    $("#emails").innerHTML = roster.map(p => `<option value="${esc(p.email)}">${esc(p.name)}</option>`).join("");
+  }
+
+  function addPerson(p){
+    const email = normEmail(p.email);
+    const name = String(p.name || "").trim();
+    if (!name || !email) return false;
+    const orcid = normOrcid(p.orcid);
+    const existing = roster.find(r => r.email === email);
+    if (existing){ existing.name = name; if (orcid) existing.orcid = orcid; }
+    else roster.push({ name, email, orcid, count: null });
+    return true;
+  }
+
+  $("#addForm").addEventListener("submit", e => {
+    e.preventDefault();
+    if (addPerson({ name: $("#pName").value, email: $("#pEmail").value, orcid: $("#pOrcid").value })){
+      saveRoster(); e.target.reset(); $("#pName").focus();
+    }
+  });
+
+  $("#people").addEventListener("click", e => {
+    const b = e.target.closest("button[data-act]"); if (!b) return;
+    const p = roster[+b.dataset.i]; if (!p) return;
+    if (b.dataset.act === "remove"){ roster.splice(+b.dataset.i, 1); saveRoster(); }
+    if (b.dataset.act === "search"){ setMode("email"); $("#q").value = p.email; runSearch(0); }
+  });
+
+  function parseCSV(text){
+    const rows = []; let row = [], f = "", q = false;
+    for (let i = 0; i < text.length; i++){
+      const c = text[i];
+      if (q){
+        if (c === '"' && text[i+1] === '"'){ f += '"'; i++; }
+        else if (c === '"') q = false;
+        else f += c;
+      } else if (c === '"') q = true;
+      else if (c === ","){ row.push(f); f = ""; }
+      else if (c === "\n" || c === "\r"){
+        if (c === "\r" && text[i+1] === "\n") i++;
+        row.push(f); rows.push(row); row = []; f = "";
+      } else f += c;
+    }
+    if (f || row.length){ row.push(f); rows.push(row); }
+    return rows.filter(r => r.some(x => x.trim()));
+  }
+
+  function importRows(text){
+    const rows = parseCSV(text);
+    if (!rows.length) return 0;
+    let start = 0, iN = 0, iE = 1, iO = 2;
+    const head = rows[0].map(h => h.trim().toLowerCase());
+    if (head.some(h => h.includes("email"))){
+      start = 1;
+      iN = head.findIndex(h => h.includes("name")); if (iN < 0) iN = 0;
+      iE = head.findIndex(h => h.includes("email"));
+      iO = head.findIndex(h => h.includes("orcid"));
+    }
+    let n = 0;
+    for (const r of rows.slice(start)){
+      if (addPerson({ name: r[iN], email: r[iE], orcid: iO >= 0 ? r[iO] : "" })) n++;
+    }
+    saveRoster();
+    return n;
+  }
+
+  $("#importBtn").addEventListener("click", async () => {
+    let text = $("#csvText").value;
+    const file = $("#csvFile").files[0];
+    if (file) text = await file.text() + "\n" + text;
+    const n = importRows(text);
+    notice(n ? `Imported ${n} people.` : "No valid rows found. Each row needs a name and an email.", n ? "info" : "");
+    $("#csvText").value = ""; $("#csvFile").value = "";
+  });
+
+  $("#exportRoster").addEventListener("click", () => {
+    if (!roster.length) return notice("The people list is empty.", "info");
+    const csv = toCSV([["name","email","orcid"], ...roster.map(p => [p.name, p.email, p.orcid || ""])]);
+    download("cgspace-people.csv", csv);
+  });
+
+  /* ---------- search mode ---------- */
+  function setMode(m){
+    mode = m;
+    document.querySelectorAll(".modes button").forEach(b => b.setAttribute("aria-pressed", b.dataset.mode === m));
+    const q = $("#q");
+    const labels = { email: ["Email address","name@cgiar.org"], name: ["Author name as on CGSpace","Surname, Initial"], orcid: ["ORCID iD","0000-0000-0000-0000"] };
+    $("#qLabel").textContent = labels[m][0]; q.placeholder = labels[m][1];
+    if (m === "email") q.setAttribute("list", "emails"); else q.removeAttribute("list");
+    updateMatchBy();
+  }
+  document.querySelector(".modes").addEventListener("click", e => {
+    const b = e.target.closest("button[data-mode]"); if (b){ setMode(b.dataset.mode); $("#q").value = ""; $("#q").focus(); }
+  });
+
+  function updateMatchBy(){
+    const p = mode === "email" ? roster.find(r => r.email === normEmail($("#q").value)) : null;
+    $("#matchby").hidden = !(p && p.orcid);
+  }
+  $("#q").addEventListener("input", updateMatchBy);
+
+  function resolvePerson(){
+    const v = $("#q").value.trim();
+    if (!v) { notice("Type something to search for."); return null; }
+    if (mode === "email"){
+      const p = roster.find(r => r.email === normEmail(v));
+      if (!p){
+        const email = normEmail(v);
+        const g = guessFromEmail(email);
+        if (!g){ notice(`Couldn't work out a name from ${v}. Use the Author name tab, or add this person on the left.`); return null; }
+        const chosen = nameOverrides[email];
+        return { person: { name: chosen || g.name, email, orcid: "", surname: g.surname, initial: g.initial, guessed: true }, by: "name" };
+      }
+      const byOrcid = !$("#matchby").hidden && document.querySelector('input[name="by"]:checked').value === "orcid";
+      return { person: p, by: byOrcid ? "orcid" : "name" };
+    }
+    if (mode === "orcid"){
+      const o = normOrcid(v);
+      if (!o){ notice("That doesn't look like an ORCID iD. It has the form 0000-0000-0000-0000."); return null; }
+      const known = roster.find(r => r.orcid === o);
+      return { person: known || { name: "", email: "", orcid: o }, by: "orcid" };
+    }
+    const known = roster.find(r => r.name.toLowerCase() === v.toLowerCase());
+    return { person: known || { name: v, email: "", orcid: "" }, by: "name" };
+  }
+
+  const nameOverrides = {};
+  const cap = s => s.charAt(0).toUpperCase() + s.slice(1).toLowerCase();
+  function guessFromEmail(email){
+    if (!/^[^@\s]+@[^@\s]+$/.test(email)) return null;
+    const parts = email.split("@")[0].split(/[._-]+/).filter(x => /[a-z]/i.test(x)).map(x => x.replace(/\d+/g, ""));
+    if (parts.length < 2) return null;
+    const surname = cap(parts[parts.length - 1]);
+    const initial = parts[0][0].toUpperCase();
+    return { surname, initial, name: `${surname}, ${initial}` };
+  }
+
+  // Author names on CGSpace that start with the surname (uses the author facet).
+  async function authorCandidates(surname){
+    const base = apiBase.replace(/\/+$/, "");
+    const low = surname.toLowerCase();
+    try {
+      const d = await getJSON(`${base}/discover/facets/author?prefix=${encodeURIComponent(low)}&size=30`);
+      const vals = (d && d._embedded && d._embedded.values) || [];
+      return vals.map(v => ({ label: v.label, count: v.count })).filter(v => v.label && v.label.toLowerCase().startsWith(low));
+    } catch (e) {
+      if (e.network) throw e;
+      return null; // facet not available; fall back to names seen in results
+    }
+  }
+
+  /* ---------- API ---------- */
+  function buildUrl(t, page, size, sort, from, to){
+    const u = new URL(apiBase.replace(/\/+$/, "") + "/discover/search/objects");
+    u.searchParams.set("dsoType", "ITEM");
+    u.searchParams.set("page", page);
+    u.searchParams.set("size", size);
+    if (t.by === "orcid") u.searchParams.set("query", `"${t.person.orcid}"`);
+    else u.searchParams.append("f.author", `${t.person.name},contains`);
+    if (from || to) u.searchParams.append("f.dateIssued", `[${from || 1900} TO ${to || 2100}],equals`);
+    if (sort) u.searchParams.set("sort", sort);
+    return u.toString();
+  }
+
+  async function getJSON(url){
+    let r;
+    try { r = await fetch(url, { headers: { Accept: "application/json" } }); }
+    catch (e) { const err = new Error("network"); err.network = true; throw err; }
+    if (!r.ok){ const err = new Error("http " + r.status); err.status = r.status; throw err; }
+    return r.json();
+  }
+
+  // Tries the request; if CGSpace rejects the sort or date filter, retries without them.
+  async function searchWithFallback(t, page, size, opts){
+    const attempts = [
+      { sort: opts.sort, from: opts.from, to: opts.to, note: "" },
+      { sort: "", from: opts.from, to: opts.to, note: "CGSpace did not accept the chosen order, so results are shown by best match." },
+      { sort: "", from: "", to: "", note: "CGSpace did not accept the year filter, so all years are shown." }
+    ];
+    let lastErr;
+    for (const a of attempts){
+      if (a !== attempts[0] && !opts.sort && a === attempts[1]) continue;
+      try { const data = await getJSON(buildUrl(t, page, size, a.sort, a.from, a.to)); return { data, note: a.note, used: a }; }
+      catch (e) { lastErr = e; if (e.network || (e.status && e.status >= 500)) break; }
+    }
+    throw lastErr;
+  }
+
+  function parseResults(data){
+    const sr = data && data._embedded && data._embedded.searchResult;
+    const objs = (sr && sr._embedded && sr._embedded.objects) || [];
+    return { items: objs.map(o => toItem(o._embedded && o._embedded.indexableObject)).filter(Boolean), page: (sr && sr.page) || {} };
+  }
+
+  function toItem(it){
+    if (!it) return null;
+    const md = it.metadata || {};
+    const vals = k => (md[k] || []).map(x => x.value).filter(Boolean);
+    const first = (...ks) => { for (const k of ks){ const a = vals(k); if (a.length) return a[0]; } return ""; };
+    return {
+      title: first("dc.title") || it.name || "(untitled)",
+      authors: vals("dc.contributor.author"),
+      date: first("dcterms.issued", "dc.date.issued"),
+      type: first("dcterms.type", "dc.type"),
+      doi: first("cg.identifier.doi", "dc.identifier.doi"),
+      citation: first("dcterms.bibliographicCitation", "dc.identifier.citation"),
+      link: it.handle ? "https://hdl.handle.net/" + it.handle : "https://cgspace.cgiar.org/items/" + it.uuid
+    };
+  }
+
+  /* ---------- search + render ---------- */
+  async function runSearch(page){
+    notice("");
+    const t = resolvePerson(); if (!t) return;
+    const opts = { sort: $("#sort").value, from: $("#yFrom").value.trim(), to: $("#yTo").value.trim() };
+    const same = current && current.person.email === t.person.email && current.person.name === t.person.name && current.by === t.by && current.from === opts.from && current.to === opts.to;
+    $("#out").innerHTML = `<p class="toolbar status">Searching CGSpace…</p>`;
+    try {
+      const { data, note, used } = await searchWithFallback(t, page, PAGE_SIZE, opts);
+      const { items, page: pg } = parseResults(data);
+      let cands = null;
+      if (t.person.guessed){
+        cands = (same && current.cands) || await authorCandidates(t.person.surname);
+        if (!cands){ // fallback: collect names from the returned items
+          const low = t.person.surname.toLowerCase(), seen = {};
+          items.forEach(it => it.authors.forEach(a => { if (a.toLowerCase().startsWith(low)) seen[a] = (seen[a] || 0) + 1; }));
+          cands = Object.keys(seen).map(label => ({ label, count: null }));
+        }
+      }
+      current = { cands, ...t, page, totalPages: pg.totalPages || 0, totalElements: pg.totalElements || 0, sort: used.sort, from: used.from, to: used.to, years: same ? current.years : null, opts };
+      if (t.person.email){ const r = roster.find(x => x.email === t.person.email); if (r && !opts.from && !opts.to){ r.count = current.totalElements; saveRoster(); } }
+      if (note) notice(note, "info");
+      render(items);
+    } catch (e) {
+      showError(e);
+      $("#out").innerHTML = "";
+    }
+  }
+
+  function showError(e){
+    if (e && e.network){
+      notice("The browser could not reach CGSpace. This usually means CGSpace blocks requests from this web address (a CORS restriction). Deploy the included proxy and paste its address under Connection settings.");
+    } else if (e && e.status === 429){
+      notice("CGSpace is limiting requests right now. Wait a minute and try again.");
+    } else {
+      notice(`CGSpace returned an error${e && e.status ? " (" + e.status + ")" : ""}. Check the author name or try a simpler search.`);
+    }
+  }
+
+  function highlight(author){
+    const p = current.person;
+    if (current.by !== "name" || !p.name) return esc(author);
+    const needle = p.name.toLowerCase().trim();
+    return author.toLowerCase().includes(needle) ? `<mark>${esc(author)}</mark>` : esc(author);
+  }
+
+  function render(items){
+    const p = current.person;
+    const who = p.name || p.orcid;
+    const matchNote = current.by === "orcid" ? `Matched by ORCID iD ${esc(p.orcid)}` : `Matched by author name containing “${esc(p.name)}”`;
+    const yearsTxt = current.from || current.to ? ` · ${current.from || "…"}–${current.to || "…"}` : "";
+    let html = `
+      <section class="person" aria-label="Author">
+        <div>
+          <div class="who">${esc(who)}</div>
+          <div class="meta">
+            ${p.email ? `<a href="mailto:${esc(p.email)}">${esc(p.email)}</a>` : ""}
+            ${p.orcid ? `<a href="https://orcid.org/${esc(p.orcid)}" target="_blank" rel="noopener">ORCID ${esc(p.orcid)}</a>` : ""}
+            <span>${matchNote}${yearsTxt}</span>
+          </div>
+        </div>
+        <div class="total"><strong>${current.totalElements.toLocaleString()}</strong>outputs</div>
+      </section>
+      ${p.guessed ? candPanel() : ""}
+      <div id="years">${current.years ? yearChart(current.years) : ""}</div>
+      <div class="toolbar">
+        <span class="status">${current.totalElements ? `Page ${current.page + 1} of ${current.totalPages}` : ""}</span>
+        ${current.totalElements ? `<button class="btn ghost small" id="exportBtn" type="button">Download all as CSV${current.totalElements > EXPORT_CAP ? ` (first ${EXPORT_CAP})` : ""}</button>` : ""}
+      </div>`;
+    if (!items.length){
+      html += `<p class="start">No outputs found${p.guessed ? " for the name worked out from this email. Pick a spelling above, or search on the Author name tab" : ""}. Try a shorter name (surname and first initial), check spelling against an item on CGSpace, or remove the year filter.</p>`;
+    } else {
+      html += `<ol class="results">` + items.map(it => {
+        const shown = it.authors.slice(0, 8).map(highlight).join("; ");
+        const more = it.authors.length > 8 ? `; and ${it.authors.length - 8} more` : "";
+        return `<li>
+          <h3 class="rtitle"><a href="${esc(it.link)}" target="_blank" rel="noopener">${esc(it.title)}</a></h3>
+          <p class="rauth">${shown}${more}</p>
+          <div class="rmeta">
+            ${it.type ? `<span class="rtype">${esc(it.type)}</span>` : ""}
+            ${it.date ? `<span>${esc(it.date)}</span>` : ""}
+            ${it.doi ? `<a href="${esc(/^https?:/.test(it.doi) ? it.doi : "https://doi.org/" + it.doi)}" target="_blank" rel="noopener">DOI</a>` : ""}
+            <a href="${esc(it.link)}" target="_blank" rel="noopener">View on CGSpace</a>
+          </div>
+        </li>`;
+      }).join("") + `</ol>`;
+      if (current.totalPages > 1){
+        html += `<nav class="pager" aria-label="Pages">
+          <button class="btn ghost small" id="prev" type="button" ${current.page === 0 ? "disabled" : ""}>Previous</button>
+          <span>Page ${current.page + 1} of ${current.totalPages}</span>
+          <button class="btn ghost small" id="next" type="button" ${current.page + 1 >= current.totalPages ? "disabled" : ""}>Next</button>
+        </nav>`;
+      }
+    }
+    $("#out").innerHTML = html;
+    const prev = $("#prev"), next = $("#next"), exp = $("#exportBtn");
+    if (prev) prev.onclick = () => runSearch(current.page - 1);
+    if (next) next.onclick = () => runSearch(current.page + 1);
+    if (exp) exp.onclick = exportAll;
+    const cp = $("#cands");
+    if (cp) cp.onclick = e => {
+      const c = e.target.closest("[data-name]");
+      if (c){ nameOverrides[current.person.email] = c.dataset.name; runSearch(0); return; }
+      if (e.target.closest("#saveGuess")){
+        addPerson({ name: current.person.name, email: current.person.email, orcid: "" });
+        saveRoster(); notice(`Saved ${current.person.name} (${current.person.email}) to your people list.`, "info");
+        current.person.guessed = false; cp.remove();
+      }
+    };
+  }
+
+  function candPanel(){
+    const p = current.person, list = current.cands || [];
+    const initialMatch = c => { const given = (c.label.split(",")[1] || "").trim(); return !given || given[0].toUpperCase() === p.initial; };
+    const sorted = list.slice().sort((a, b) => (initialMatch(b) - initialMatch(a)) || ((b.count || 0) - (a.count || 0)));
+    const chips = sorted.slice(0, 20).map(c => `<button type="button" class="chip" data-name="${esc(c.label)}" aria-pressed="${c.label === p.name}">${esc(c.label)}${c.count != null ? " (" + c.count + ")" : ""}</button>`).join("");
+    return `<div class="cands" id="cands">
+      <p>This email isn't in your people list, so the search used <strong>${esc(p.name)}</strong>, worked out from the email. ${list.length ? "Names on CGSpace with this surname — pick the right one to narrow the results:" : "No other spellings with this surname were found on CGSpace."}</p>
+      ${chips ? `<div class="chips">${chips}</div>` : ""}
+      <button type="button" class="btn small" id="saveGuess">Save “${esc(p.name)}” for this email</button>
+    </div>`;
+  }
+
+  function yearChart(years){
+    const ks = Object.keys(years).filter(k => k !== "?").sort();
+    if (!ks.length) return "";
+    const lo = +ks[0], hi = +ks[ks.length - 1], all = [];
+    for (let y = lo; y <= hi; y++) all.push([y, years[y] || 0]);
+    const max = Math.max(...all.map(a => a[1]));
+    return `<div class="years" aria-label="Outputs per year">
+      <div class="bars">${all.map(([y, n]) => `<div class="bar" title="${y}: ${n}" style="height:${Math.max(2, n / max * 100)}%"><span class="sr">${y}: ${n}</span></div>`).join("")}</div>
+      <div class="labels">${all.map(([y]) => `<span>${y % 5 === 0 || y === lo || y === hi ? "’" + String(y).slice(2) : ""}</span>`).join("")}</div>
+    </div>`;
+  }
+
+  async function exportAll(){
+    const btn = $("#exportBtn"); btn.disabled = true;
+    const t = { person: current.person, by: current.by };
+    const size = 100, want = Math.min(current.totalElements, EXPORT_CAP);
+    const rows = [];
+    try {
+      for (let pg = 0; rows.length < want; pg++){
+        btn.textContent = `Collecting ${rows.length} of ${want}…`;
+        const data = await getJSON(buildUrl(t, pg, size, current.sort, current.from, current.to));
+        const { items } = parseResults(data);
+        if (!items.length) break;
+        rows.push(...items);
+        await sleep(250);
+      }
+    } catch (e) { showError(e); }
+    btn.disabled = false; btn.textContent = "Download all as CSV";
+    if (!rows.length) return;
+    const years = {};
+    rows.forEach(r => { const y = (r.date.match(/\d{4}/) || ["?"])[0]; years[y] = (years[y] || 0) + 1; });
+    current.years = years;
+    $("#years").innerHTML = yearChart(years);
+    const who = (current.person.name || current.person.orcid).replace(/[^\w]+/g, "-").replace(/^-|-$/g, "");
+    download(`cgspace-${who || "author"}.csv`, toCSV([
+      ["Title","Authors","Date issued","Type","DOI","CGSpace link","Citation"],
+      ...rows.map(r => [r.title, r.authors.join("; "), r.date, r.type, r.doi, r.link, r.citation])
+    ]));
+  }
+
+  /* ---------- count all ---------- */
+  $("#countAll").addEventListener("click", async e => {
+    if (!roster.length) return notice("Add people first.", "info");
+    const btn = e.currentTarget; btn.disabled = true;
+    try {
+      for (let i = 0; i < roster.length; i++){
+        btn.textContent = `Counting ${i + 1} of ${roster.length}…`;
+        const p = roster[i];
+        const data = await getJSON(buildUrl({ person: p, by: "name" }, 0, 1, "", "", ""));
+        p.count = (parseResults(data).page.totalElements) || 0;
+        renderRoster();
+        await sleep(300);
+      }
+      store.set("cgpf.roster", roster);
+    } catch (err) { showError(err); }
+    btn.disabled = false; btn.textContent = "Count outputs for everyone";
+  });
+
+  /* ---------- settings ---------- */
+  $("#apiBase").value = apiBase;
+  $("#saveApi").addEventListener("click", () => {
+    apiBase = $("#apiBase").value.trim() || DEFAULT_API; store.set("cgpf.api", apiBase);
+    $("#apiStatus").textContent = "Saved.";
+  });
+  $("#testApi").addEventListener("click", async () => {
+    const s = $("#apiStatus"); s.textContent = "Testing…";
+    try { const d = await getJSON($("#apiBase").value.trim().replace(/\/+$/, "") || DEFAULT_API);
+      s.textContent = d && (d.dspaceVersion || d._links) ? `Connected${d.dspaceVersion ? " to " + d.dspaceVersion : ""}.` : "Reached the address, but it did not look like a DSpace API.";
+    } catch (e) { s.textContent = e.network ? "Could not connect (likely blocked by CORS). Use the proxy." : `Error ${e.status}.`; }
+  });
+
+  /* ---------- helpers ---------- */
+  function notice(msg, kind){
+    $("#notice").innerHTML = msg ? `<div class="notice ${kind || ""}">${esc(msg)}</div>` : "";
+  }
+  function toCSV(rows){
+    return rows.map(r => r.map(v => { const s = String(v ?? ""); return /[",\n\r]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s; }).join(",")).join("\r\n");
+  }
+  function download(name, text){
+    const blob = new Blob(["\ufeff" + text], { type: "text/csv;charset=utf-8" });
+    const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = name;
+    document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+  }
+
+  $("#searchForm").addEventListener("submit", e => { e.preventDefault(); runSearch(0); });
+  renderRoster();
+})();
+</script>
+</body>
+</html>
