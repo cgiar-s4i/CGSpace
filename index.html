@@ -35,7 +35,7 @@ button,input,select,textarea{font:inherit;color:inherit}
 
 header.top{padding:28px clamp(16px,4vw,40px) 20px;border-bottom:1px solid var(--line);background:var(--surface)}
 header.top h1{font-family:var(--serif);font-weight:600;font-size:clamp(26px,3.4vw,36px);line-height:1.15;margin:0}
-header.top p{margin:6px 0 0;color:var(--muted);max-width:68ch}
+header.top p{margin:6px 0 0;color:var(--muted);max-width:none}
 
 .layout{display:grid;grid-template-columns:340px minmax(0,1fr);gap:0;min-height:calc(100vh - 120px)}
 @media (max-width:860px){.layout{grid-template-columns:1fr}}
@@ -92,6 +92,55 @@ main{padding:22px clamp(16px,3vw,36px) 48px;min-width:0}
 .person .total{margin-left:auto;font-variant-numeric:tabular-nums;font-size:14px;color:var(--muted)}
 .person .total strong{font-family:var(--serif);font-size:28px;color:var(--ink);font-weight:600;margin-right:4px}
 
+.profile{margin-top:18px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px 20px}
+.profile h3{font-family:var(--serif);font-size:20px;font-weight:600;margin:0 0 6px}
+.profile .lead{font-family:var(--serif);font-size:16.5px;line-height:1.6;margin:0 0 16px;max-width:none}
+.profile .basis{font-size:12.5px;color:var(--muted);margin:-8px 0 14px}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:18px}
+.tile{border-top:2px solid var(--leaf);padding-top:6px}
+.tile b{display:block;font-family:var(--serif);font-size:24px;font-weight:600;font-variant-numeric:tabular-nums}
+.tile span{font-size:12.5px;color:var(--muted)}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px 28px}
+.pgrid h4{font-size:12.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:0 0 8px;font-weight:600}
+.plist{list-style:none;margin:0;padding:0;font-size:14px}
+.plist li{display:grid;grid-template-columns:1fr auto;gap:8px;padding:3px 0;position:relative}
+.plist li .lbl{position:relative;z-index:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.plist li .n{position:relative;z-index:1;min-width:3ch;text-align:right;color:var(--muted);font-variant-numeric:tabular-nums;font-size:13px}
+.plist li .fill{position:absolute;left:0;top:3px;bottom:3px;background:var(--leaf-soft);border-radius:3px;z-index:0}
+.expertise{margin:0 0 14px;padding:10px 12px;background:var(--leaf-soft);border-radius:8px}
+.expertise h4{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:0 0 6px;font-weight:600;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.expertise h4 .hint-inline{text-transform:none;letter-spacing:0;font-weight:400;font-size:12px}
+.xchips{display:flex;flex-wrap:wrap;gap:5px}
+.xchip{display:inline-flex;align-items:center;gap:4px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:2px 3px 2px 10px;font-size:13px;line-height:1.5}
+.xchip.primary{border-color:var(--leaf);font-weight:600}
+.xchip .xs{font-size:12px;color:var(--muted);font-weight:400;font-variant-numeric:tabular-nums}
+.xchip button{border:0;background:none;color:var(--muted);cursor:pointer;font-size:14px;line-height:1;padding:0 4px;border-radius:50%}
+.xchip button:hover{color:var(--warn)}
+.xadd{display:inline-flex;gap:5px;align-items:center;font-size:13px;color:var(--muted)}
+.xadd input{width:170px;padding:2px 9px;font-size:13px;border-radius:999px}
+.xadd .btn.small{padding:2px 10px;font-size:12.5px;border-radius:999px}
+.people-results{list-style:none;margin:16px 0 0;padding:0}
+.people-results li{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px 18px;margin-bottom:12px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 18px}
+.people-results .rank{font-variant-numeric:tabular-nums;color:var(--muted);font-size:13px}
+.people-results .pr-name{font-family:var(--serif);font-size:21px;font-weight:600;line-height:1.25}
+.people-results .pr-mail{font-size:13px;color:var(--muted)}
+.people-results .rel{grid-column:2;grid-row:1 / span 2;text-align:right;min-width:150px}
+.people-results .rel b{display:block;font-family:var(--serif);font-size:26px;font-weight:600;font-variant-numeric:tabular-nums}
+.people-results .rel span{font-size:12.5px;color:var(--muted)}
+.people-results .relbar{height:6px;background:var(--leaf-soft);border-radius:3px;margin-top:6px;overflow:hidden}
+.people-results .relbar i{display:block;height:100%;background:var(--leaf)}
+.people-results .pr-body{grid-column:1 / -1;font-size:14.5px}
+.people-results .pr-body p{margin:6px 0 0}
+.people-results .xchips{margin-top:8px}
+.people-results .xchip{padding:3px 12px;font-size:13px}
+.people-results .xchip.hit{border-color:var(--leaf);background:var(--leaf-soft);font-weight:600}
+.people-results .pr-acts{grid-column:1 / -1;margin-top:8px}
+@media (max-width:600px){.people-results .rel{grid-column:1 / -1;grid-row:auto;text-align:left}}
+.inlist{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--leaf);font-weight:500}
+.addp{display:inline-flex;flex-wrap:wrap;gap:6px;align-items:center}
+.addp input{width:220px;padding:5px 9px;font-size:13px}
+.person .addwrap{margin-top:8px}
+.profile .loading{color:var(--muted);font-size:14px}
 .years{margin-top:14px}
 .years .bars{display:flex;align-items:flex-end;gap:3px;height:70px;overflow-x:auto;padding-bottom:2px}
 .years .bar{flex:0 0 22px;background:var(--leaf);border-radius:2px 2px 0 0;position:relative;min-height:2px}
@@ -118,6 +167,8 @@ ol.results li{padding:16px 0;border-bottom:1px solid var(--line)}
 .cands p{margin:0 0 8px}
 .cands .chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
 .chip{border:1px solid var(--line);background:var(--paper);border-radius:999px;padding:3px 10px;cursor:pointer;font-size:13px}
+.cands .acts{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.chip[aria-pressed=true]::before{content:"✓ "}
 .chip[aria-pressed=true]{border-color:var(--leaf);background:var(--leaf-soft);font-weight:500}
 .start{margin-top:40px;max-width:60ch;color:var(--muted)}
 .start h2{font-family:var(--serif);font-size:22px;color:var(--ink);font-weight:600;margin-bottom:8px}
@@ -156,7 +207,7 @@ ol.results li{padding:16px 0;border-bottom:1px solid var(--line)}
 
     <details>
       <summary>Import people from CSV</summary>
-      <p class="hint">Columns: name, email, orcid. Put names containing commas in quotes, e.g. <code>"Krupnik, T",t.krupnik@cgiar.org,0000-0001-6973-0106</code></p>
+      <p class="hint">Columns: name, email, orcid, and optionally “name spellings” (separate several with semicolons). Put names containing commas in quotes, e.g. <code>"Krupnik, T",t.krupnik@cgiar.org,0000-0001-6973-0106</code></p>
       <div class="field"><label for="csvFile">Upload a CSV file</label><input id="csvFile" type="file" accept=".csv,text/csv"></div>
       <div class="field"><label for="csvText">Or paste rows</label><textarea id="csvText"></textarea></div>
       <button class="btn small" id="importBtn" type="button">Import rows</button>
@@ -180,6 +231,7 @@ ol.results li{padding:16px 0;border-bottom:1px solid var(--line)}
         <button type="button" data-mode="email" aria-pressed="true">Email</button>
         <button type="button" data-mode="name" aria-pressed="false">Author name</button>
         <button type="button" data-mode="orcid" aria-pressed="false">ORCID iD</button>
+        <button type="button" data-mode="expertise" aria-pressed="false">Area of expertise</button>
       </div>
       <form id="searchForm" autocomplete="off">
         <div class="row">
@@ -200,6 +252,36 @@ ol.results li{padding:16px 0;border-bottom:1px solid var(--line)}
           <label><input type="radio" name="by" value="name" checked> author name</label>
           <label><input type="radio" name="by" value="orcid"> ORCID iD</label>
         </div>
+      </form>
+      <form id="expForm" autocomplete="off" hidden>
+        <div class="row">
+          <div class="field" style="flex:3 1 280px">
+            <label for="expSel">Area of expertise</label>
+            <select id="expSel"></select>
+          </div>
+          <div class="field" style="flex:0 1 230px"><label for="expSort">Order</label>
+            <select id="expSort">
+              <option value="area">Score = % match × publications</option>
+              <option value="total">Most publications first</option>
+              <option value="relevance">Most specialised first</option>
+            </select></div>
+          <div class="field" style="flex:0 1 110px"><label for="expFrom">From year</label><input id="expFrom" type="number" min="1970" max="2100" placeholder="Any"></div>
+          <div class="field" style="flex:0 0 auto"><button class="btn" type="submit">Find people</button></div>
+        </div>
+        <div class="row">
+          <div class="field" style="flex:1 1 100%">
+            <label for="expKw">Or search by keywords (instead of an area)</label>
+            <input id="expKw" type="search" placeholder="e.g. fall armyworm, seed systems, digital advisory services">
+          </div>
+        </div>
+        <p class="hint" style="margin:-4px 0 8px">Separate alternatives with commas. Within one alternative, all words must appear — “rice seed, maize seed” finds outputs about rice seed or maize seed.</p>
+        <div class="matchby" style="margin-top:2px">
+          Search in
+          <label><input type="radio" name="expScope" value="cgspace" checked> all of CGSpace</label>
+          <label><input type="radio" name="expScope" value="list"> my people list</label>
+          <button class="linkbtn" type="button" id="expRefresh" hidden>Refresh people-list profiles</button>
+        </div>
+        <p class="hint" style="margin:6px 0 0" id="expHint">Finds outputs on CGSpace about this area, then ranks their authors by how many of those outputs they wrote.</p>
       </form>
     </section>
 
@@ -255,7 +337,7 @@ ol.results li{padding:16px 0;border-bottom:1px solid var(--line)}
         <li>
           <span class="pname">${esc(p.name)}</span>
           <span class="pcount">${p.count == null ? "" : esc(p.count) + " outputs"}</span>
-          <span class="pmail">${esc(p.email)}${p.orcid ? " · ORCID " + esc(p.orcid) : ""}</span>
+          <span class="pmail">${esc(p.email)}${p.orcid ? " · ORCID " + esc(p.orcid) : ""}${p.names && p.names.length > 1 ? " · " + p.names.length + " name spellings" : ""}</span>
           <span class="pacts">
             <button class="linkbtn" data-act="search" data-i="${i}" type="button">Show outputs</button>
             <button class="linkbtn danger" data-act="remove" data-i="${i}" type="button">Remove</button>
@@ -270,9 +352,13 @@ ol.results li{padding:16px 0;border-bottom:1px solid var(--line)}
     const name = String(p.name || "").trim();
     if (!name || !email) return false;
     const orcid = normOrcid(p.orcid);
+    const names = Array.isArray(p.names) ? [...new Set(p.names.map(s => String(s).trim()).filter(Boolean))] : [];
     const existing = roster.find(r => r.email === email);
-    if (existing){ existing.name = name; if (orcid) existing.orcid = orcid; }
-    else roster.push({ name, email, orcid, count: null });
+    if (existing){
+      existing.name = name; if (orcid) existing.orcid = orcid;
+      if (names.length){ if (names.join("¦") !== (existing.names || []).join("¦")) existing.summary = null; existing.names = names; existing.count = null; }
+    }
+    else roster.push({ name, email, orcid, names, count: null });
     return true;
   }
 
@@ -312,17 +398,24 @@ ol.results li{padding:16px 0;border-bottom:1px solid var(--line)}
   function importRows(text){
     const rows = parseCSV(text);
     if (!rows.length) return 0;
-    let start = 0, iN = 0, iE = 1, iO = 2;
+    let start = 0, iN = 0, iE = 1, iO = 2, iV = -1, iX = -1;
     const head = rows[0].map(h => h.trim().toLowerCase());
     if (head.some(h => h.includes("email"))){
       start = 1;
       iN = head.findIndex(h => h.includes("name")); if (iN < 0) iN = 0;
       iE = head.findIndex(h => h.includes("email"));
       iO = head.findIndex(h => h.includes("orcid"));
+      iV = head.findIndex(h => h.includes("spelling") || h.includes("variant") || h === "names");
+      iX = head.findIndex(h => h.includes("expertise"));
+
     }
     let n = 0;
     for (const r of rows.slice(start)){
-      if (addPerson({ name: r[iN], email: r[iE], orcid: iO >= 0 ? r[iO] : "" })) n++;
+      const names = iV >= 0 && r[iV] ? r[iV].split(";") : [];
+      if (addPerson({ name: r[iN], email: r[iE], orcid: iO >= 0 ? r[iO] : "", names })){
+        n++;
+        if (iX >= 0 && r[iX]){ const pr = roster.find(x => x.email === normEmail(r[iE])); if (pr) pr.expertiseAdd = r[iX].split(";").map(s => s.trim()).filter(Boolean); }
+      }
     }
     saveRoster();
     return n;
@@ -339,13 +432,16 @@ ol.results li{padding:16px 0;border-bottom:1px solid var(--line)}
 
   $("#exportRoster").addEventListener("click", () => {
     if (!roster.length) return notice("The people list is empty.", "info");
-    const csv = toCSV([["name","email","orcid"], ...roster.map(p => [p.name, p.email, p.orcid || ""])]);
+    const csv = toCSV([["name","email","orcid","name spellings","expertise"], ...roster.map(p => [p.name, p.email, p.orcid || "", (p.names || []).join("; "), (p.expertiseAdd || []).join("; ")])]);
     download("cgspace-people.csv", csv);
   });
 
   /* ---------- search mode ---------- */
   function setMode(m){
     mode = m;
+    $("#searchForm").hidden = m === "expertise";
+    $("#expForm").hidden = m !== "expertise";
+    if (m === "expertise"){ document.querySelectorAll(".modes button").forEach(b => b.setAttribute("aria-pressed", b.dataset.mode === m)); fillExpertiseSelect(); return; }
     document.querySelectorAll(".modes button").forEach(b => b.setAttribute("aria-pressed", b.dataset.mode === m));
     const q = $("#q");
     const labels = { email: ["Email address","name@cgiar.org"], name: ["Author name as on CGSpace","Surname, Initial"], orcid: ["ORCID iD","0000-0000-0000-0000"] };
@@ -354,7 +450,10 @@ ol.results li{padding:16px 0;border-bottom:1px solid var(--line)}
     updateMatchBy();
   }
   document.querySelector(".modes").addEventListener("click", e => {
-    const b = e.target.closest("button[data-mode]"); if (b){ setMode(b.dataset.mode); $("#q").value = ""; $("#q").focus(); }
+    const b = e.target.closest("button[data-mode]"); if (!b) return;
+    setMode(b.dataset.mode);
+    if (b.dataset.mode === "expertise"){ $("#expSel").focus(); return; }
+    $("#q").value = ""; $("#q").focus();
   });
 
   function updateMatchBy(){
@@ -372,11 +471,17 @@ ol.results li{padding:16px 0;border-bottom:1px solid var(--line)}
         const email = normEmail(v);
         const g = guessFromEmail(email);
         if (!g){ notice(`Couldn't work out a name from ${v}. Use the Author name tab, or add this person on the left.`); return null; }
-        const chosen = nameOverrides[email];
-        return { person: { name: chosen || g.name, email, orcid: "", surname: g.surname, initial: g.initial, guessed: true }, by: "name" };
+        const names = nameOverrides[email] || [g.name];
+        return { person: { name: names[0], names, email, orcid: "", surname: g.surname, initial: g.initial, guessed: true }, by: "name" };
       }
+      const ov = nameOverrides[p.email];
+      const surname = p.name.split(",")[0].trim();
+      const initial = ((p.name.split(",")[1] || "").trim()[0] || "").toUpperCase();
+      const person = ov ? { ...p, name: ov[0], names: ov } : p;
+      Object.defineProperty(person, "surname", { value: surname, enumerable: false, configurable: true, writable: true });
+      Object.defineProperty(person, "initial", { value: initial, enumerable: false, configurable: true, writable: true });
       const byOrcid = !$("#matchby").hidden && document.querySelector('input[name="by"]:checked').value === "orcid";
-      return { person: p, by: byOrcid ? "orcid" : "name" };
+      return { person, by: byOrcid ? "orcid" : "name" };
     }
     if (mode === "orcid"){
       const o = normOrcid(v);
@@ -413,6 +518,56 @@ ol.results li{padding:16px 0;border-bottom:1px solid var(--line)}
     }
   }
 
+  const namesOf = p => (p && p.names && p.names.length ? p.names : [p && p.name].filter(Boolean));
+  const isMulti = t => t.by === "name" && namesOf(t.person).length > 1;
+  const nameKey = t => t.by === "orcid" ? "orcid:" + t.person.orcid : namesOf(t.person).join("¦");
+
+  // Several spellings: search each one exactly, then merge and de-duplicate.
+  const MERGE_CAP = 1500;
+  const mergedCache = {};
+  async function fetchMerged(t, from, to){
+    const key = nameKey(t) + "|" + from + "|" + to;
+    if (mergedCache[key]) return mergedCache[key];
+    const byLink = new Map();
+    for (const nm of namesOf(t.person)){
+      for (const op of ["equals", "contains"]){
+        let got = 0, total = 0;
+        for (let pg = 0; byLink.size < MERGE_CAP; pg++){
+          const data = await getJSON(buildUrl({ person: { name: nm }, by: "name", op }, pg, 100, "", from, to));
+          const r = parseResults(data);
+          total = r.page.totalElements || 0;
+          r.items.forEach(it => { if (!byLink.has(it.link)) byLink.set(it.link, it); });
+          got += r.items.length;
+          if (r.items.length < 100 || got >= total) break;
+          await sleep(200);
+        }
+        if (total > 0) break; // exact match worked; otherwise try "contains"
+      }
+    }
+    return (mergedCache[key] = [...byLink.values()]);
+  }
+
+  // One page of results, whether from a single CGSpace search or a merged set.
+  async function getPage(t, page, size, opts){
+    if (isMulti(t)){
+      let all, note = "", used = { sort: opts.sort, from: opts.from, to: opts.to };
+      try { all = await fetchMerged(t, opts.from, opts.to); }
+      catch (e) {
+        if (e.network || !(opts.from || opts.to)) throw e;
+        all = await fetchMerged(t, "", ""); used.from = ""; used.to = "";
+        note = "CGSpace did not accept the year filter, so all years are shown.";
+      }
+      const d = it => it.date || "";
+      all = all.slice();
+      if (opts.sort === "dc.date.issued,DESC") all.sort((a, b) => d(b).localeCompare(d(a)));
+      else if (opts.sort === "dc.date.issued,ASC") all.sort((a, b) => d(a).localeCompare(d(b)));
+      return { items: all.slice(page * size, page * size + size), totalElements: all.length, totalPages: Math.ceil(all.length / size), note, used };
+    }
+    const { data, note, used } = await searchWithFallback(t, page, size, opts);
+    const { items, page: pg } = parseResults(data);
+    return { items, totalElements: pg.totalElements || 0, totalPages: pg.totalPages || 0, note, used };
+  }
+
   /* ---------- API ---------- */
   function buildUrl(t, page, size, sort, from, to){
     const u = new URL(apiBase.replace(/\/+$/, "") + "/discover/search/objects");
@@ -420,9 +575,9 @@ ol.results li{padding:16px 0;border-bottom:1px solid var(--line)}
     u.searchParams.set("page", page);
     u.searchParams.set("size", size);
     if (t.by === "orcid") u.searchParams.set("query", `"${t.person.orcid}"`);
-    else u.searchParams.append("f.author", `${t.person.name},contains`);
+    else u.searchParams.append("f.author", `${namesOf(t.person)[0]},${t.op || "contains"}`);
     if (from || to) u.searchParams.append("f.dateIssued", `[${from || 1900} TO ${to || 2100}],equals`);
-    if (sort) u.searchParams.set("sort", sort);
+    if (sort) u.searchParams.set("sort", sort.replace("dc.date.issued", sortField));
     return u.toString();
   }
 
@@ -435,16 +590,23 @@ ol.results li{padding:16px 0;border-bottom:1px solid var(--line)}
   }
 
   // Tries the request; if CGSpace rejects the sort or date filter, retries without them.
+  let sortField = "dc.date.issued"; // switches to dcterms.issued if CGSpace only accepts that
   async function searchWithFallback(t, page, size, opts){
+    const alt = opts.sort && /^dc\.date\.issued,/.test(opts.sort) ? opts.sort.replace("dc.date.issued", "dcterms.issued") : "";
     const attempts = [
       { sort: opts.sort, from: opts.from, to: opts.to, note: "" },
+      ...(alt ? [{ sort: alt, from: opts.from, to: opts.to, note: "" }] : []),
       { sort: "", from: opts.from, to: opts.to, note: "CGSpace did not accept the chosen order, so results are shown by best match." },
       { sort: "", from: "", to: "", note: "CGSpace did not accept the year filter, so all years are shown." }
     ];
     let lastErr;
     for (const a of attempts){
-      if (a !== attempts[0] && !opts.sort && a === attempts[1]) continue;
-      try { const data = await getJSON(buildUrl(t, page, size, a.sort, a.from, a.to)); return { data, note: a.note, used: a }; }
+      if (a !== attempts[0] && !opts.sort && a.sort === "" && a.from === opts.from && a.to === opts.to) continue;
+      try {
+        const data = await getJSON(buildUrl(t, page, size, a.sort, a.from, a.to));
+        if (a.sort && a.sort.startsWith("dcterms.issued")) sortField = "dcterms.issued";
+        return { data, note: a.note, used: a };
+      }
       catch (e) { lastErr = e; if (e.network || (e.status && e.status >= 500)) break; }
     }
     throw lastErr;
@@ -468,36 +630,43 @@ ol.results li{padding:16px 0;border-bottom:1px solid var(--line)}
       type: first("dcterms.type", "dc.type"),
       doi: first("cg.identifier.doi", "dc.identifier.doi"),
       citation: first("dcterms.bibliographicCitation", "dc.identifier.citation"),
-      link: it.handle ? "https://hdl.handle.net/" + it.handle : "https://cgspace.cgiar.org/items/" + it.uuid
+      link: it.handle ? "https://hdl.handle.net/" + it.handle : "https://cgspace.cgiar.org/items/" + it.uuid,
+      md
     };
   }
 
+  const candCache = {};
   /* ---------- search + render ---------- */
   async function runSearch(page){
     notice("");
     const t = resolvePerson(); if (!t) return;
     const opts = { sort: $("#sort").value, from: $("#yFrom").value.trim(), to: $("#yTo").value.trim() };
-    const same = current && current.person.email === t.person.email && current.person.name === t.person.name && current.by === t.by && current.from === opts.from && current.to === opts.to;
-    $("#out").innerHTML = `<p class="toolbar status">Searching CGSpace…</p>`;
+    const same = current && current.person.email === t.person.email && nameKey(current) === nameKey(t) && current.by === t.by && current.from === opts.from && current.to === opts.to;
+    const soft = current && t.person.email && current.person.email === t.person.email && $("#out .person");
+    if (soft){ $("#out").style.opacity = ".55"; const st = $("#applyState"); if (st) st.textContent = "Updating results and profile…"; }
+    else $("#out").innerHTML = `<p class="toolbar status">Searching CGSpace…</p>`;
     try {
-      const { data, note, used } = await searchWithFallback(t, page, PAGE_SIZE, opts);
-      const { items, page: pg } = parseResults(data);
+      if (!soft && isMulti(t) && !mergedCache[nameKey(t) + "|" + opts.from + "|" + opts.to]) $("#out").innerHTML = `<p class="toolbar status">Collecting outputs for ${namesOf(t.person).length} name spellings…</p>`;
+      const { items, totalElements, totalPages, note, used } = await getPage(t, page, PAGE_SIZE, opts);
       let cands = null;
-      if (t.person.guessed){
-        cands = (same && current.cands) || await authorCandidates(t.person.surname);
+      if (t.person.email && t.by === "name" && t.person.surname){
+        cands = candCache[t.person.surname.toLowerCase()] || await authorCandidates(t.person.surname);
+        if (cands && cands.length) candCache[t.person.surname.toLowerCase()] = cands;
         if (!cands){ // fallback: collect names from the returned items
           const low = t.person.surname.toLowerCase(), seen = {};
           items.forEach(it => it.authors.forEach(a => { if (a.toLowerCase().startsWith(low)) seen[a] = (seen[a] || 0) + 1; }));
           cands = Object.keys(seen).map(label => ({ label, count: null }));
         }
       }
-      current = { cands, ...t, page, totalPages: pg.totalPages || 0, totalElements: pg.totalElements || 0, sort: used.sort, from: used.from, to: used.to, years: same ? current.years : null, opts };
+      current = { cands, ...t, page, totalPages, totalElements, sort: used.sort, from: used.from, to: used.to, years: same ? current.years : null, opts };
       if (t.person.email){ const r = roster.find(x => x.email === t.person.email); if (r && !opts.from && !opts.to){ r.count = current.totalElements; saveRoster(); } }
       if (note) notice(note, "info");
+      $("#out").style.opacity = "";
       render(items);
     } catch (e) {
       showError(e);
-      $("#out").innerHTML = "";
+      $("#out").style.opacity = "";
+      if (!soft) $("#out").innerHTML = "";
     }
   }
 
@@ -514,14 +683,73 @@ ol.results li{padding:16px 0;border-bottom:1px solid var(--line)}
   function highlight(author){
     const p = current.person;
     if (current.by !== "name" || !p.name) return esc(author);
-    const needle = p.name.toLowerCase().trim();
-    return author.toLowerCase().includes(needle) ? `<mark>${esc(author)}</mark>` : esc(author);
+    return isSelf(author, current) ? `<mark>${esc(author)}</mark>` : esc(author);
+  }
+
+  /* ---------- add any profile to the people list ---------- */
+  function findInList(names, email){
+    if (email){ const r = roster.find(x => x.email === normEmail(email)); if (r) return r; }
+    const low = names.map(n => n.toLowerCase());
+    return roster.find(x => namesOf(x).some(n => low.includes(n.toLowerCase())));
+  }
+  function guessEmail(name){
+    const [last, first] = String(name || "").split(",");
+    if (!first || !first.trim()) return "name@cgiar.org";
+    const clean = s => s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z]/g, "");
+    return `${clean(first.trim()[0])}.${clean(last.trim().split(/\s+/).pop())}@cgiar.org`;
+  }
+  function addControl(names, email, orcid){
+    names = names.filter(Boolean);
+    if (!names.length) return "";
+    const known = findInList(names, email);
+    if (known) return `<span class="inlist">✓ In your people list${known.email ? " · " + esc(known.email) : ""}</span>`;
+    return `<button type="button" class="btn small" data-addperson data-names="${esc(JSON.stringify(names))}" data-email="${esc(email || "")}" data-orcid="${esc(orcid || "")}">+ Add to my people list</button>`;
+  }
+  function saveFromControl(box, email){
+    const names = JSON.parse(box.dataset.names || "[]");
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ notice("Enter a valid email address to save this person."); return; }
+    if (!addPerson({ name: names[0], email, orcid: box.dataset.orcid || "", names })) return;
+    saveRoster();
+    box.outerHTML = `<span class="inlist">✓ Added to your people list · ${esc(normEmail(email))}</span>`;
+    notice(`Added ${names[0]} (${normEmail(email)}) to your people list.`, "info");
+  }
+  document.addEventListener("click", e => {
+    const b = e.target.closest("[data-addperson]");
+    if (b){
+      e.stopPropagation();
+      if (b.dataset.email){ saveFromControl(b, b.dataset.email); return; }
+      const names = JSON.parse(b.dataset.names || "[]");
+      const form = document.createElement("span");
+      form.className = "addp"; form.dataset.names = b.dataset.names; form.dataset.orcid = b.dataset.orcid || "";
+      form.innerHTML = `<input type="email" placeholder="${esc(guessEmail(names[0]))}" aria-label="Email for ${esc(names[0])}">
+        <button type="button" class="btn small" data-addsave>Save</button>
+        <button type="button" class="linkbtn" data-addcancel>Cancel</button>`;
+      form.dataset.button = b.outerHTML;
+      b.replaceWith(form);
+      form.querySelector("input").focus();
+      return;
+    }
+    const s = e.target.closest("[data-addsave]");
+    if (s){ e.stopPropagation(); const box = s.closest(".addp"); saveFromControl(box, box.querySelector("input").value.trim()); return; }
+    const c = e.target.closest("[data-addcancel]");
+    if (c){ e.stopPropagation(); const box = c.closest(".addp"); box.outerHTML = box.dataset.button; }
+  }, true);
+  document.addEventListener("keydown", e => {
+    if (e.key === "Enter" && e.target.closest && e.target.closest(".addp input")){ e.preventDefault(); e.target.closest(".addp").querySelector("[data-addsave]").click(); }
+  });
+
+  function isSelf(author, t){
+    const a = author.toLowerCase().trim();
+    return namesOf(t.person).some(n => { const x = n.toLowerCase().trim(); return isMulti(t) ? a === x || a.includes(x) : a.includes(x); });
   }
 
   function render(items){
     const p = current.person;
     const who = p.name || p.orcid;
-    const matchNote = current.by === "orcid" ? `Matched by ORCID iD ${esc(p.orcid)}` : `Matched by author name containing “${esc(p.name)}”`;
+    const nm = namesOf(p);
+    const matchNote = current.by === "orcid" ? `Matched by ORCID iD ${esc(p.orcid)}`
+      : nm.length > 1 ? `Matched by ${nm.length} name spellings: ${nm.map(esc).join("; ")}`
+      : `Matched by author name containing “${esc(p.name)}”`;
     const yearsTxt = current.from || current.to ? ` · ${current.from || "…"}–${current.to || "…"}` : "";
     let html = `
       <section class="person" aria-label="Author">
@@ -532,11 +760,12 @@ ol.results li{padding:16px 0;border-bottom:1px solid var(--line)}
             ${p.orcid ? `<a href="https://orcid.org/${esc(p.orcid)}" target="_blank" rel="noopener">ORCID ${esc(p.orcid)}</a>` : ""}
             <span>${matchNote}${yearsTxt}</span>
           </div>
+          <div class="addwrap">${addControl(namesOf(p), p.email, p.orcid)}</div>
         </div>
         <div class="total"><strong>${current.totalElements.toLocaleString()}</strong>outputs</div>
       </section>
-      ${p.guessed ? candPanel() : ""}
-      <div id="years">${current.years ? yearChart(current.years) : ""}</div>
+      ${current.cands ? candPanel() : ""}
+      ${current.totalElements ? `<section class="profile" id="profile" aria-label="Author profile"><p class="loading">Building profile from publications…</p></section>` : ""}
       <div class="toolbar">
         <span class="status">${current.totalElements ? `Page ${current.page + 1} of ${current.totalPages}` : ""}</span>
         ${current.totalElements ? `<button class="btn ghost small" id="exportBtn" type="button">Download all as CSV${current.totalElements > EXPORT_CAP ? ` (first ${EXPORT_CAP})` : ""}</button>` : ""}
@@ -571,27 +800,79 @@ ol.results li{padding:16px 0;border-bottom:1px solid var(--line)}
     if (prev) prev.onclick = () => runSearch(current.page - 1);
     if (next) next.onclick = () => runSearch(current.page + 1);
     if (exp) exp.onclick = exportAll;
+    if (current.totalElements) loadProfile();
     const cp = $("#cands");
     if (cp) cp.onclick = e => {
       const c = e.target.closest("[data-name]");
-      if (c){ nameOverrides[current.person.email] = c.dataset.name; runSearch(0); return; }
-      if (e.target.closest("#saveGuess")){
-        addPerson({ name: current.person.name, email: current.person.email, orcid: "" });
-        saveRoster(); notice(`Saved ${current.person.name} (${current.person.email}) to your people list.`, "info");
-        current.person.guessed = false; cp.remove();
+      if (c){ c.setAttribute("aria-pressed", c.getAttribute("aria-pressed") !== "true"); syncCandButtons(); scheduleApply(); return; }
+      if (e.target.closest("#selAll")){ cp.querySelectorAll(".chip").forEach(x => x.setAttribute("aria-pressed", "true")); syncCandButtons(); scheduleApply(); return; }
+      if (e.target.closest("#selNone")){ cp.querySelectorAll(".chip").forEach(x => x.setAttribute("aria-pressed", "false")); syncCandButtons(); return; }
+      const save = e.target.closest("#saveNames");
+      if (!save) return;
+      clearTimeout(applyTimer);
+      const sel = selectedNames();
+      if (!sel.length) return notice("Select at least one name spelling.");
+      const email = current.person.email;
+      nameOverrides[email] = sel;
+      if (save){
+        const existing = roster.find(r => r.email === email);
+        addPerson({ name: sel[0], email, orcid: existing ? existing.orcid : "", names: sel });
+        saveRoster();
+        delete nameOverrides[email];
+        notice(`Saved ${sel.length} name spelling${sel.length > 1 ? "s" : ""} for ${email}.`, "info");
       }
+      runSearch(0);
     };
+    syncCandButtons();
+  }
+
+  // Selecting spellings updates the results and profile automatically, after a short pause.
+  let applyTimer = null;
+  function scheduleApply(){
+    clearTimeout(applyTimer);
+    const st = $("#applyState"); if (st) st.textContent = "Updating shortly…";
+    applyTimer = setTimeout(() => {
+      const sel = selectedNames(), applied = namesOf(current.person);
+      const changed = sel.length !== applied.length || sel.some(s => !applied.includes(s));
+      if (!sel.length){ if (st) st.textContent = "Select at least one spelling."; return; }
+      if (!changed){ if (st) st.textContent = ""; return; }
+      nameOverrides[current.person.email] = sel;
+      runSearch(0);
+    }, 900);
+  }
+
+  function selectedNames(){
+    const chips = [...document.querySelectorAll("#cands .chip[aria-pressed=true]")];
+    return chips.sort((a, b) => (+b.dataset.count || 0) - (+a.dataset.count || 0)).map(c => c.dataset.name);
+  }
+  function syncCandButtons(){
+    const sel = selectedNames(), applied = namesOf(current.person);
+    const changed = sel.length !== applied.length || sel.some(s => !applied.includes(s));
+    const sv = $("#saveNames");
+    if (sv) sv.disabled = !sel.length;
+    const st = $("#applyState");
+    if (st && !changed) st.textContent = `${applied.length} spelling${applied.length === 1 ? "" : "s"} in use`;
   }
 
   function candPanel(){
-    const p = current.person, list = current.cands || [];
+    const p = current.person, applied = namesOf(p);
+    const list = (current.cands || []).slice();
+    applied.forEach(n => { if (!list.some(c => c.label === n)) list.push({ label: n, count: null }); });
     const initialMatch = c => { const given = (c.label.split(",")[1] || "").trim(); return !given || given[0].toUpperCase() === p.initial; };
     const sorted = list.slice().sort((a, b) => (initialMatch(b) - initialMatch(a)) || ((b.count || 0) - (a.count || 0)));
-    const chips = sorted.slice(0, 20).map(c => `<button type="button" class="chip" data-name="${esc(c.label)}" aria-pressed="${c.label === p.name}">${esc(c.label)}${c.count != null ? " (" + c.count + ")" : ""}</button>`).join("");
+    const chips = sorted.slice(0, 30).map(c => `<button type="button" class="chip" data-name="${esc(c.label)}" data-count="${c.count == null ? "" : c.count}" aria-pressed="${applied.includes(c.label)}">${esc(c.label)}${c.count != null ? " (" + c.count + ")" : ""}</button>`).join("");
+    const intro = p.guessed && applied.length === 1 && !(current.cands || []).some(c => c.label === applied[0])
+      ? `This email isn't in your people list, so the search started from <strong>${esc(applied[0])}</strong>, worked out from the email.`
+      : p.guessed ? "This email isn't saved in your people list yet." : "Name spellings used for this person.";
     return `<div class="cands" id="cands">
-      <p>This email isn't in your people list, so the search used <strong>${esc(p.name)}</strong>, worked out from the email. ${list.length ? "Names on CGSpace with this surname — pick the right one to narrow the results:" : "No other spellings with this surname were found on CGSpace."}</p>
-      ${chips ? `<div class="chips">${chips}</div>` : ""}
-      <button type="button" class="btn small" id="saveGuess">Save “${esc(p.name)}” for this email</button>
+      <p>${intro} Click every spelling on CGSpace that belongs to this person — the results and profile update automatically and combine them, without counting any output twice.</p>
+      ${chips ? `<div class="chips">${chips}</div>` : "<p>No other spellings with this surname were found on CGSpace.</p>"}
+      <div class="acts">
+        <button type="button" class="btn small" id="saveNames">Save for this email</button>
+        <button type="button" class="linkbtn" id="selAll">Select all</button>
+        <button type="button" class="linkbtn" id="selNone">Clear</button>
+        <span class="src" id="applyState" aria-live="polite" style="font-size:13px;color:var(--muted)"></span>
+      </div>
     </div>`;
   }
 
@@ -607,6 +888,634 @@ ol.results li{padding:16px 0;border-bottom:1px solid var(--line)}
     </div>`;
   }
 
+  /* ---------- author profile ---------- */
+  const PROFILE_CAP = 300;
+  const profileCache = {};
+
+  const valuesFor = (md, prefixes) => Object.keys(md || {})
+    .filter(k => prefixes.some(p => k === p || k.startsWith(p + ".")))
+    .flatMap(k => (md[k] || []).map(x => x.value)).filter(Boolean);
+
+  function tally(items, getter, norm){
+    const m = new Map();
+    items.forEach(it => {
+      const seen = new Set();
+      getter(it).forEach(v => {
+        const s = String(v).trim(); if (!s) return;
+        const key = s.toLowerCase(); if (seen.has(key)) return; seen.add(key);
+        const e = m.get(key) || { label: norm ? norm(s) : s, n: 0 }; e.n++; m.set(key, e);
+      });
+    });
+    return [...m.values()].sort((a, b) => b.n - a.n);
+  }
+  const sentence = s => { const t = s === s.toUpperCase() ? s.charAt(0) + s.slice(1).toLowerCase() : s; return t.charAt(0).toUpperCase() + t.slice(1); };
+  const listTxt = arr => arr.length < 2 ? (arr[0] || "") : arr.slice(0, -1).join(", ") + " and " + arr[arr.length - 1];
+  const pct = (a, b) => b ? Math.round(a / b * 100) : 0;
+
+  /* ---------- areas of expertise ---------- */
+  // Each area: [role shown, area description, pattern matched in titles, keywords and abstracts]
+  const EXPERTISE = [
+    ["Scaling specialist", "Scaling agricultural innovations", /\bscal(ing|e[ -]?up|e[ -]?out|ability|able)\b|scaling readiness|innovation (adoption|uptake|diffusion|bundle|package)|adoption of|technology adoption|uptake of/],
+    ["Gender and inclusion specialist", "Gender equality and social inclusion", /\bgender|\bwomen\b|\bwoman\b|youth|social inclusion|\bgesi\b|intersectional|empower/],
+    ["Agronomist", "Agronomy and crop management", /agronom|crop management|yield gap|nutrient management|fertili[sz]|conservation agriculture|tillage|cropping system|sowing|planting date|weed|crop establishment|intercrop|sustainable intensification/],
+    ["Climate resilience specialist", "Climate change adaptation and resilience", /climate|adaptation|resilien|drought|flood|heat stress|weather|monsoon|cyclone|salinity|emission/],
+    ["Nutrition and food security specialist", "Nutrition, diets and food security", /nutrition|\bdiet|food security|food insecurity|micronutrient|biofortif|stunting|malnutrition|anaemia|anemia/],
+    ["Agricultural economist", "Agricultural economics, markets and value chains", /econom|market|value chain|\bprice|profitab|cost[- ]benefit|\bincome|\btrade\b|financ|credit|insurance|investment/],
+    ["Policy and governance specialist", "Policy, governance and institutions", /\bpolic(y|ies)\b|governance|institution|regulat|government|public sector|political/],
+    ["Soil scientist", "Soil health and fertility", /\bsoil/],
+    ["Water management specialist", "Water resources and irrigation", /\bwater|irrigat|groundwater|aquifer|hydrolog|watershed/],
+    ["Plant breeder", "Plant breeding and genetics", /breed|genetic|genom|germplasm|\bvariet(y|ies|al)|cultivar|\bhybrid|\bqtl\b|trait/],
+    ["Seed systems specialist", "Seed systems", /seed (system|sector|production|enterprise|value chain|market)|quality seed|seed delivery/],
+    ["Livestock specialist", "Livestock and animal health", /livestock|cattle|dairy|\bgoat|\bsheep|poultry|chicken|veterinar|animal health|pastoral|forage|fodder/],
+    ["Fisheries and aquaculture specialist", "Fisheries and aquaculture", /\bfish|aquacult|shrimp|prawn/],
+    ["Digital agriculture specialist", "Digital tools, data and modelling", /digital|\bict\b|mobile phone|remote sensing|satellite|machine learning|artificial intelligence|\bai\b|big data|decision support|\bmodel(l)?ing|crop model|geospatial|\bgis\b|app\b/],
+    ["Mechanization specialist", "Farm mechanization", /mechani[sz]|machinery|tractor|harvester|two[- ]wheel|thresher|seeder|planter/],
+    ["Crop protection specialist", "Pests, diseases and crop protection", /\bpest|plant disease|crop disease|pathogen|armyworm|\bblast\b|\brust\b|integrated pest|\bipm\b|insect|fungicide|pesticide/],
+    ["Food systems specialist", "Agrifood systems transformation", /food system|agrifood|agri-food|systems transformation|food environment/],
+    ["Natural resource management specialist", "Landscapes, ecosystems and biodiversity", /biodiversit|ecosystem|landscape|forest|agroforest|land use|land degradation|restoration|natural resource/],
+    ["MEL and impact specialist", "Monitoring, evaluation and impact assessment", /impact assessment|impact evaluation|\bevaluation|monitoring|randomi[sz]ed|counterfactual|causal|theory of change|\bmelia?\b|indicator/],
+    ["Social scientist", "Farmer behaviour, livelihoods and households", /behavio|perception|household|livelihood|social network|farmer decision|willingness to|choice experiment|\bpoverty/],
+    ["Extension and capacity development specialist", "Extension, advisory services and capacity development", /extension|advisory|capacity (building|development|strengthening)|training|farmer field school|knowledge (sharing|exchange)|learning alliance/],
+    ["One Health and food safety specialist", "One Health and food safety", /one health|zoono|antimicrobial|food safety|aflatoxin|mycotoxin/]
+  ];
+  const expertiseEdits = {}; // session edits for people not in the list
+
+  function itemText(it){
+    const abs = valuesFor(it.md, ["dcterms.abstract", "dc.description.abstract"]).join(" ").slice(0, 2000);
+    return [it.title, ...valuesFor(it.md, ["dcterms.subject", "cg.subject"]), abs].join(" ").toLowerCase();
+  }
+
+  function inferExpertise(items){
+    const n = items.length; if (!n) return [];
+    const texts = items.map(itemText);
+    return EXPERTISE.map(([role, area, re]) => ({ role, area, n: texts.filter(x => re.test(x)).length }))
+      .filter(x => x.n >= Math.max(2, Math.ceil(n * 0.1)) || (n < 6 && x.n >= 1 && x.n >= n / 2))
+      .sort((a, b) => b.n - a.n)
+      .map(x => ({ ...x, share: Math.round(x.n / n * 100) }));
+  }
+
+  function editsFor(p){
+    const saved = p.email ? roster.find(r => r.email === p.email) : null;
+    if (saved) return { add: saved.expertiseAdd || [], hide: saved.expertiseHide || [] };
+    return expertiseEdits[nameKey(current)] || { add: [], hide: [] };
+  }
+
+  function setEdits(p, edits){
+    const saved = p.email ? roster.find(r => r.email === p.email) : null;
+    if (saved){ saved.expertiseAdd = edits.add; saved.expertiseHide = edits.hide; saveRoster(); return; }
+    if (p.email){
+      addPerson({ name: namesOf(p)[0], email: p.email, orcid: p.orcid || "", names: namesOf(p) });
+      const r = roster.find(x => x.email === p.email);
+      r.expertiseAdd = edits.add; r.expertiseHide = edits.hide; saveRoster();
+      notice(`Saved ${p.email} to your people list with these areas of expertise.`, "info");
+      return;
+    }
+    expertiseEdits[nameKey(current)] = edits;
+  }
+
+  function finalExpertise(pr){
+    const e = editsFor(current.person);
+    const auto = (pr.expertise || []).filter(x => !e.hide.includes(x.role)).map(x => ({ ...x, auto: true }));
+    const manual = e.add.filter(r => !auto.some(a => a.role.toLowerCase() === r.toLowerCase())).map(r => ({ role: r, area: "Added by you", manual: true }));
+    return manual.concat(auto);
+  }
+
+  function expertiseHTML(pr){
+    const list = finalExpertise(pr);
+    const hidden = editsFor(current.person).hide.filter(r => (pr.expertise || []).some(x => x.role === r));
+    const chip = (x, i) => `<span class="xchip${i === 0 ? " primary" : ""}" title="${esc(x.auto ? x.area + " — " + x.share + "% of outputs (" + x.n + ")" : "Added by you")}">
+          ${esc(x.role)} <span class="xs">${x.auto ? x.share + "%" : "you"}</span>
+          <button type="button" data-xremove="${esc(x.role)}" data-manual="${x.manual ? 1 : 0}" aria-label="Remove ${esc(x.role)}">×</button></span>`;
+    return `<div class="expertise" id="expertise">
+      <h4>Areas of expertise <span class="hint-inline">% of outputs · hover for details · × to remove</span>
+        ${hidden.length ? `<button type="button" class="linkbtn" id="xrestore" style="font-size:12px;text-transform:none;letter-spacing:0">Show ${hidden.length} removed</button>` : ""}</h4>
+      <div class="xchips">
+        ${list.length ? list.map(chip).join("") : `<span class="loading" style="font-size:13px">No clear area from the publications.</span>`}
+        <span class="xadd">
+          <input id="xnew" type="text" list="xroles" placeholder="+ Add an area" aria-label="Add an area of expertise">
+          <datalist id="xroles">${EXPERTISE.map(x => `<option value="${esc(x[0])}">`).join("")}</datalist>
+          <button type="button" class="btn ghost small" id="xaddBtn">Add</button>
+        </span>
+      </div>
+    </div>`;
+  }
+
+  function wireExpertise(pr){
+    const box = $("#expertise"); if (!box) return;
+    const redraw = () => { const s = $("#profile"); if (s){ s.innerHTML = profileHTML(pr); wireExpertise(pr); } };
+    box.onclick = e => {
+      const rm = e.target.closest("[data-xremove]");
+      const ed = editsFor(current.person), edits = { add: ed.add.slice(), hide: ed.hide.slice() };
+      if (rm){
+        const role = rm.dataset.xremove;
+        if (rm.dataset.manual === "1") edits.add = edits.add.filter(r => r !== role);
+        else if (!edits.hide.includes(role)) edits.hide.push(role);
+        setEdits(current.person, edits); redraw(); return;
+      }
+      if (e.target.closest("#xrestore")){ edits.hide = []; setEdits(current.person, edits); redraw(); return; }
+      if (e.target.closest("#xaddBtn")){
+        const v = $("#xnew").value.trim(); if (!v) return;
+        edits.hide = edits.hide.filter(r => r.toLowerCase() !== v.toLowerCase());
+        if (!edits.add.some(r => r.toLowerCase() === v.toLowerCase()) && !(pr.expertise || []).some(x => x.role.toLowerCase() === v.toLowerCase())) edits.add.push(v);
+        setEdits(current.person, edits); redraw();
+      }
+    };
+    const inp = $("#xnew");
+    if (inp) inp.onkeydown = e => { if (e.key === "Enter"){ e.preventDefault(); $("#xaddBtn").click(); } };
+  }
+
+  /* ---------- search people by area of expertise ---------- */
+  const SUMMARY_CAP = PROFILE_CAP; // profile, people-list search and CGSpace search all analyse the same newest outputs
+
+  function summarize(items, total){
+    const years = items.map(it => +(it.date.match(/\d{4}/) || [])[0]).filter(Boolean).sort((a, b) => a - b);
+    return {
+      total, sampled: items.length,
+      from: years[0] || null, to: years[years.length - 1] || null,
+      expertise: inferExpertise(items).map(x => ({ role: x.role, area: x.area, n: x.n, share: x.share })),
+      themes: tally(items, it => valuesFor(it.md, ["dcterms.subject", "cg.subject"]), sentence).slice(0, 4).map(x => x.label),
+      countries: tally(items, it => valuesFor(it.md, ["cg.coverage.country"])).slice(0, 4).map(x => x.label),
+      builtAt: Date.now()
+    };
+  }
+
+  const SUMMARY_TTL = 14 * 24 * 3600 * 1000;
+  const summaryStore = store.get("cgpf.summaries", {}) || {};
+  function getSummary(key){ const s = summaryStore[key]; return s && Date.now() - s.builtAt < SUMMARY_TTL ? s : null; }
+  function putSummary(key, s){
+    summaryStore[key] = s;
+    const keys = Object.keys(summaryStore);
+    if (keys.length > 400) keys.sort((a, b) => summaryStore[a].builtAt - summaryStore[b].builtAt).slice(0, keys.length - 400).forEach(k => delete summaryStore[k]);
+    store.set("cgpf.summaries", summaryStore);
+  }
+  async function summaryFor(p, force){
+    const key = nameKey({ person: p, by: "name" });
+    const hit = !force && getSummary(key);
+    if (hit) return hit;
+    const s = await buildSummary(p);
+    putSummary(key, s);
+    return s;
+  }
+
+  async function buildSummary(p){
+    const { items, total } = await fetchSample(p);
+    textCache[nameKey({ person: p, by: "name" })] = { texts: items.map(itemText), total };
+    return summarize(items, total);
+  }
+
+  async function fetchSample(p){
+    const t = { person: p, by: "name" };
+    const opts = { sort: "dc.date.issued,DESC", from: "", to: "" };
+    const first = await getPage(t, 0, 100, opts);
+    const items = first.items.slice();
+    for (let pg = 1; items.length < Math.min(first.totalElements, SUMMARY_CAP); pg++){
+      await sleep(200);
+      const r = await getPage(t, pg, 100, opts);
+      if (!r.items.length) break;
+      items.push(...r.items);
+    }
+    return { items: items.slice(0, SUMMARY_CAP), total: first.totalElements };
+  }
+
+  function allRoles(){
+    const roles = EXPERTISE.map(x => x[0]);
+    roster.forEach(p => (p.expertiseAdd || []).forEach(r => { if (!roles.some(x => x.toLowerCase() === r.toLowerCase())) roles.push(r); }));
+    return roles;
+  }
+
+  function fillExpertiseSelect(){
+    const sel = $("#expSel"), keep = sel.value;
+    sel.innerHTML = allRoles().map(r => {
+      const area = (EXPERTISE.find(x => x[0] === r) || [])[1];
+      return `<option value="${esc(r)}">${esc(r)}${area ? " — " + esc(area) : " (added by you)"}</option>`;
+    }).join("");
+    if (keep) sel.value = keep;
+  }
+
+  // Relevance: share of the person's outputs in this area, with a boost when you added/confirmed it; removed roles never match.
+  // One rule for every list: an area counts only if it appears in the person's profile (same classifier, same sample).
+  // Score = outputs in the area, weighted by how much of their work it is; your edits override the classifier.
+  function relevance(p, role, summary){
+    const s = summary || p.summary;
+    const low = role.toLowerCase();
+    if ((p.expertiseHide || []).some(r => r.toLowerCase() === low)) return null;
+    const manual = (p.expertiseAdd || []).some(r => r.toLowerCase() === low);
+    const list = (s && s.expertise) || [];
+    const auto = list.find(x => x.role.toLowerCase() === low);
+    if (!manual && !auto) return null;
+    const rank = list.findIndex(x => x.role.toLowerCase() === low);
+    const base = auto ? auto.n * (0.5 + auto.share / 100) : 0;
+    return { manual, auto, score: manual ? Math.max(base * 1.2, 1) : base, share: auto ? auto.share : null, n: auto ? auto.n : null, primary: rank === 0 };
+  }
+
+  async function ensureSummaries(force){
+    const todo = roster.filter(p => force || !p.summary);
+    for (let i = 0; i < todo.length; i++){
+      $("#out").innerHTML = `<p class="toolbar status">Building profiles from CGSpace: ${i + 1} of ${todo.length} (${esc(todo[i].name)})…</p>`;
+      try { todo[i].summary = await summaryFor(todo[i], force); todo[i].count = todo[i].summary.total; }
+      catch (e) { if (e.network) throw e; }
+      store.set("cgpf.roster", roster);
+      await sleep(250);
+    }
+    renderRoster();
+  }
+
+  /* ---------- search all of CGSpace by area of expertise ---------- */
+  const EXPERTISE_QUERY = {
+    "Scaling specialist": '"scaling" OR "scale up" OR "scaling up" OR "scaling out" OR "innovation adoption" OR "technology adoption" OR "scaling readiness"',
+    "Gender and inclusion specialist": 'gender OR women OR "social inclusion" OR youth OR empowerment OR GESI',
+    "Agronomist": 'agronomy OR "crop management" OR "yield gap" OR "nutrient management" OR fertilizer OR "conservation agriculture" OR "sustainable intensification"',
+    "Climate resilience specialist": '"climate change" OR "climate adaptation" OR "climate resilience" OR drought OR "climate-smart"',
+    "Nutrition and food security specialist": 'nutrition OR diets OR "food security" OR micronutrients OR biofortification',
+    "Agricultural economist": 'economics OR markets OR "value chains" OR prices OR profitability OR income',
+    "Policy and governance specialist": 'policy OR policies OR governance OR institutions',
+    "Soil scientist": 'soil OR "soil health" OR "soil fertility"',
+    "Water management specialist": 'water OR irrigation OR groundwater',
+    "Plant breeder": '"plant breeding" OR breeding OR genetics OR genomics OR germplasm OR varieties',
+    "Seed systems specialist": '"seed systems" OR "seed production" OR "quality seed" OR "seed sector"',
+    "Livestock specialist": 'livestock OR cattle OR dairy OR poultry OR "animal health" OR pastoralism',
+    "Fisheries and aquaculture specialist": 'fisheries OR aquaculture OR fish',
+    "Digital agriculture specialist": '"digital agriculture" OR digital OR ICT OR "remote sensing" OR "machine learning" OR "decision support" OR modelling',
+    "Mechanization specialist": 'mechanization OR mechanisation OR machinery OR tractors',
+    "Crop protection specialist": 'pests OR "plant diseases" OR "integrated pest management" OR "fall armyworm" OR "crop protection"',
+    "Food systems specialist": '"food systems" OR agrifood OR "agri-food" OR "systems transformation"',
+    "Natural resource management specialist": 'biodiversity OR ecosystems OR landscapes OR agroforestry OR forests OR "natural resource management"',
+    "MEL and impact specialist": '"impact assessment" OR "impact evaluation" OR monitoring OR evaluation',
+    "Social scientist": 'livelihoods OR households OR perceptions OR behaviour OR poverty',
+    "Extension and capacity development specialist": 'extension OR "advisory services" OR "capacity development" OR "capacity building" OR training',
+    "One Health and food safety specialist": '"one health" OR "food safety" OR aflatoxins OR antimicrobial OR zoonoses'
+  };
+  const TOPIC_SAMPLE = 500, TOP_AUTHORS = 30;
+
+  // Keywords: comma = OR between alternatives; words inside one alternative must all appear.
+  function parseKeywords(text){
+    const alts = String(text || "").split(/,|;|\bOR\b/i).map(s => s.trim()).filter(Boolean)
+      .map(a => (a.match(/"[^"]+"|\S+/g) || []).map(w => w.replace(/"/g, "").toLowerCase().trim()).filter(Boolean))
+      .filter(a => a.length);
+    if (!alts.length) return null;
+    const q = alts.map(a => a.length === 1 ? solrTerm(a[0]) : "(" + a.map(solrTerm).join(" AND ") + ")").join(" OR ");
+    return { label: String(text).trim(), alts, query: q };
+  }
+  function solrTerm(w){ return /[\s\-:/]/.test(w) ? `"${w.replace(/"/g, "")}"` : w.replace(/[+\-!(){}\[\]^"~*?:\\\/]/g, ""); }
+  const kwMatch = (kw, text) => kw.alts.some(a => a.every(w => text.includes(w)));
+
+  // Text of a person's analysed outputs (same newest-300 sample as the profile), kept in memory.
+  const textCache = {};
+  async function textsFor(p){
+    const key = nameKey({ person: p, by: "name" });
+    if (!textCache[key]){
+      const { items, total } = await fetchSample(p);
+      textCache[key] = { texts: items.map(itemText), total };
+      putSummary(key, summarize(items, total));
+    }
+    return { ...textCache[key], s: getSummary(key) || { total: textCache[key].total, expertise: [], sampled: textCache[key].texts.length } };
+  }
+  // Same rule as profile areas: at least 2 outputs (or half of a very small record); score = % match × publications.
+  function kwRelevance(kw, sample){
+    const n = sample.texts.filter(t => kwMatch(kw, t)).length, m = sample.texts.length;
+    if (!m || !(n >= 2 || (m < 6 && n >= 1 && n >= m / 2))) return null;
+    const share = Math.round(n / m * 100);
+    return { manual: false, auto: true, share, n, primary: false, score: n * (0.5 + share / 100) };
+  }
+
+  // CGSpace lists programmes, centres and other organisations as authors too; keep only personal names.
+  const ORG_WORDS = /\b(program|programme|research|centre|center|institut\w*|universit\w*|cgiar|initiative|department|ministry|organi[sz]ation|association|network|consortium|project|foundation|council|agency|bank|platform|alliance|international|group|team|office|company|ltd|inc|committee|secretariat|partnership|unit|division|service|society|union|fund|commission|authority|government|national|agricultur\w*|food|security|climate|systems?|laborator\w*|school|college|faculty|hub|forum|accelerator|science|development|corporation|federation|cooperative|trust|world|global|regional|board|bureau|museum|library|press|journal|collaboration|coalition|facility)\b/i;
+  function isPersonName(n){
+    const s = String(n || "").trim();
+    const i = s.indexOf(",");
+    if (i < 1) return false;
+    const last = s.slice(0, i).trim(), first = s.slice(i + 1).trim();
+    if (!first || s.indexOf(",", i + 1) !== -1) return false;           // personal names have exactly one comma
+    if (ORG_WORDS.test(s) || /\b(and|of|for|on|the)\b/i.test(s) || /&|\(|\)|\d/.test(s)) return false;
+    if (last.split(/\s+/).length > 3 || first.split(/\s+/).length > 4) return false;
+    if (/^[A-Z]{2,}$/.test(last)) return false;                         // acronyms such as "ILRI, ..."
+    return true;
+  }
+  const topicCache = {}, authorCountCache = {};
+
+  function discoverUrl({ query, author, from, page = 0, size = 1 }){
+    const u = new URL(apiBase.replace(/\/+$/, "") + "/discover/search/objects");
+    u.searchParams.set("dsoType", "ITEM");
+    u.searchParams.set("page", page);
+    u.searchParams.set("size", size);
+    if (query) u.searchParams.set("query", query);
+    if (author) u.searchParams.append("f.author", `${author},equals`);
+    if (from) u.searchParams.append("f.dateIssued", `[${from} TO 2100],equals`);
+    return u.toString();
+  }
+
+  async function countFor(params){
+    const key = JSON.stringify(params);
+    if (authorCountCache[key] != null) return authorCountCache[key];
+    const d = await getJSON(discoverUrl({ ...params, size: 1 }));
+    return (authorCountCache[key] = parseResults(d).page.totalElements || 0);
+  }
+
+  // Run up to `limit` async jobs at a time.
+  async function pool(list, limit, fn){
+    const out = new Array(list.length); let i = 0;
+    await Promise.all(Array.from({ length: Math.min(limit, list.length) }, async () => {
+      while (i < list.length){ const k = i++; out[k] = await fn(list[k], k); }
+    }));
+    return out;
+  }
+
+  async function runCGSpaceExpertise(role, from, kw){
+    const query = kw ? kw.query : (EXPERTISE_QUERY[role] || `"${role.replace(/"/g, "")}"`);
+    const area = kw ? "Keyword search" : (EXPERTISE.find(x => x[0] === role) || [])[1];
+    if (kw) role = `“${kw.label}”`;
+    const out = $("#out");
+    const key = query + "|" + from;
+    let sample = topicCache[key], topicTotal = sample && sample.total;
+    if (!sample){
+      const items = []; let total = 0;
+      for (let pg = 0; items.length < TOPIC_SAMPLE; pg++){
+        out.innerHTML = `<p class="toolbar status">Searching CGSpace for outputs on ${esc(area || role)}… (${items.length} read)</p>`;
+        let d;
+        try { d = await getJSON(discoverUrl({ query, from, page: pg, size: 100 })); }
+        catch (e) { if (from && !e.network && pg === 0){ from = ""; notice("CGSpace did not accept the year filter, so all years are used.", "info"); d = await getJSON(discoverUrl({ query, page: pg, size: 100 })); } else throw e; }
+        const r = parseResults(d); total = r.page.totalElements || 0;
+        items.push(...r.items);
+        if (r.items.length < 100) break;
+        await sleep(200);
+      }
+      sample = topicCache[key] = { items, total };
+      topicTotal = total;
+    }
+
+    // Authors who appear most often among the most relevant outputs
+    const byAuthor = new Map();
+    sample.items.forEach(it => new Set(it.authors).forEach(a => {
+      const k = a.trim(); if (!isPersonName(k)) return;
+      if (!byAuthor.has(k)) byAuthor.set(k, []);
+      byAuthor.get(k).push(it);
+    }));
+    const candidates = [...byAuthor.entries()].sort((a, b) => b[1].length - a[1].length).slice(0, TOP_AUTHORS);
+    if (!candidates.length){ out.innerHTML = `<p class="start">CGSpace has no outputs matching this area${from ? " since " + esc(from) : ""}.</p>`; return; }
+
+    // Build each candidate's profile with exactly the same rules as the Profile page, then keep only
+    // people whose profile actually lists this area — so search results and profiles always agree.
+    const inList = name => roster.find(p => namesOf(p).some(n => n.toLowerCase() === name.toLowerCase()));
+    let done = 0;
+    const built = await pool(candidates, 4, async ([name, its]) => {
+      const known = inList(name);
+      let s = null, r = null;
+      try {
+        if (kw){ const smp = await textsFor({ name, names: [name], email: "" }); s = smp.s; r = kwRelevance(kw, smp); }
+        else { s = await summaryFor({ name, names: [name], email: "" }); r = relevance(known || {}, role, s); }
+      } catch (e) { if (e.network) throw e; }
+      done++; out.innerHTML = `<p class="toolbar status">Building author profiles: ${done} of ${candidates.length}…</p>`;
+      if (!s) return null;
+      return r ? { name, its, s, known, ...r } : null;
+    });
+    const qualified = built.filter(Boolean).map(x => ({ ...x, r: x }));
+    setBalanceMax(qualified);
+    const rows = qualified.sort(expCompare(expSortKey())).slice(0, 20);
+    if (!rows.length){ out.innerHTML = `<p class="start">None of the most frequent authors on this topic have it in at least two of their analysed outputs${kw ? "" : " (as an area of expertise in their profile)"}. Try other ${kw ? "keywords" : "area"} or remove the year filter.</p>`; return; }
+    const barValue = (r, s) => { const k = expSortKey(); return k === "balanced" ? balanced(r, s) : k === "total" ? s.total : k === "area" ? areaEstimate(r, s) : r.score; };
+    const maxBar = Math.max(1, ...rows.map(r => barValue(r, r.s)));
+    let html = `<section class="person" aria-label="Expertise search">
+        <div><div class="who">${esc(role)}</div><div class="meta"><span>${area ? esc(area) + " · " : ""}${topicTotal.toLocaleString()} matching outputs on CGSpace${from ? " since " + esc(from) : ""} · top authors among the ${sample.items.length} most relevant</span></div></div>
+        <div class="total"><strong>${rows.length}</strong>people</div>
+      </section>
+      <p class="hint" style="margin-top:10px">${kw ? `% match = share of each person's ${PROFILE_CAP} most recent outputs whose title, keywords or abstract contain these keywords.` : `Each person is checked with the same rules as their Profile page (their ${PROFILE_CAP} most recent outputs), so everyone listed shows this area in their profile.`} ${SORT_NOTE[expSortKey()]} Name spellings are counted separately.</p>`;
+    html += `<ol class="people-results">${rows.map((r, i) => {
+      const yrs = r.its.map(it => +(it.date.match(/\d{4}/) || [])[0]).filter(Boolean).sort((a, b) => a - b);
+      const themes = tally(r.its, it => valuesFor(it.md, ["dcterms.subject", "cg.subject"]), sentence).slice(0, 4).map(x => x.label.toLowerCase());
+      const countries = tally(r.its, it => valuesFor(it.md, ["cg.coverage.country"])).slice(0, 4).map(x => x.label);
+      const known = r.known;
+      const chips = (r.s.expertise || []).filter(x => !(known && (known.expertiseHide || []).includes(x.role))).map(x => x.role);
+      return `<li>
+        <div><span class="rank">#${i + 1}${known ? " · in your people list" : ""}</span>
+          <div class="pr-name">${esc(r.name)}</div>
+          ${known ? `<div class="pr-mail">${esc(known.email)}</div>` : ""}</div>
+        <div class="rel"><b>${bigFigure(r, r.s)[0]}</b><span>${bigFigure(r, r.s)[1]}</span>
+          <div class="relbar"><i style="width:${Math.round(barValue(r, r.s) / maxBar * 100)}%"></i></div></div>
+        <div class="pr-body">
+          <p>${yrs.length ? `Relevant outputs from ${yrs[0] === yrs[yrs.length - 1] ? yrs[0] : yrs[0] + "–" + yrs[yrs.length - 1]}.` : ""}${themes.length ? ` Themes: ${esc(themes.join(", "))}.` : ""}${countries.length ? ` Countries: ${esc(countries.join(", "))}.` : ""}</p>
+          ${chips.length ? `<div class="xchips">${chips.map(c => `<span class="xchip${c.toLowerCase() === role.toLowerCase() ? " hit" : ""}">${esc(c)}</span>`).join("")}</div>` : ""}
+          <p class="hint" style="margin:6px 0 0">Recent relevant output: ${esc((r.its.slice().sort((a, b) => (b.date || "").localeCompare(a.date || ""))[0] || {}).title || "")}</p>
+        </div>
+        <div class="pr-acts" style="display:flex;gap:10px;flex-wrap:wrap;align-items:center"><button type="button" class="btn ghost small" ${known ? `data-open="${esc(known.email)}"` : `data-openname="${esc(r.name)}"`}>Open full profile</button>${known ? "" : addControl([r.name], "", "")}</div>
+      </li>`;
+    }).join("")}</ol>`;
+    out.innerHTML = html;
+  }
+
+  // Order for expertise results. "total" = all CGSpace outputs; "area" = estimated outputs in the area; "relevance" = specialisation score.
+  const expSortKey = () => ($("#expSort") && $("#expSort").value) || "area";
+  // Balanced score (0–100): half from publications (relative to the person with the most),
+  // half from % match (relative to the highest % in the results).
+  let balanceMax = { total: 1, share: 1 };
+  function setBalanceMax(list){
+    balanceMax = {
+      total: Math.max(1, ...list.map(x => (x.s && x.s.total) || 0)),
+      share: Math.max(1, ...list.map(x => (x.r && x.r.share) || 0))
+    };
+  }
+  const balanced = (r, s) => Math.round(50 * ((s && s.total) || 0) / balanceMax.total + 50 * (r.share != null ? r.share : (r.manual ? balanceMax.share : 0)) / balanceMax.share);
+  const areaEstimate = (r, s) => r.share != null && s ? Math.round(r.share * s.total) / 100 : 0;
+  const fmtScore = v => v.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  function expCompare(key){
+    return (a, b) => {
+      const v = x => key === "balanced" ? balanced(x.r, x.s) : key === "total" ? x.s.total : key === "area" ? areaEstimate(x.r, x.s) : x.r.score;
+      return (v(b) - v(a)) || (b.r.score - a.r.score) || (b.s.total - a.s.total);
+    };
+  }
+  const SORT_NOTE = { balanced: "Ranked by a score that gives equal weight to number of publications and % match with this area (each compared with the highest in these results).", total: "Listed by total number of publications on CGSpace, most first.", area: "Score = % match × number of publications (for example 25% × 465 = 116.25). Highest score first.", relevance: "Listed by how specialised each person is in this area." };
+  function bigFigure(r, s){
+    const k = expSortKey();
+    if (k === "balanced") return [s.total.toLocaleString(), `publications · ${r.share != null ? r.share + "% match" : "area added by you"} · score ${balanced(r, s)}`];
+    if (k === "total") return [s.total.toLocaleString(), `publications on CGSpace · ${r.share != null ? r.share + "% in this area" : "area added by you"}`];
+    if (k === "area") return [r.share != null ? fmtScore(areaEstimate(r, s)) : "✓", r.share != null ? `score = ${r.share}% match × ${s.total.toLocaleString()} publications` : `area added by you · ${s.total.toLocaleString()} publications`];
+    return [r.share != null ? r.share + "%" : "✓", r.share != null ? `of publications in this area · ${s.total.toLocaleString()} in total` : `area added by you · ${s.total.toLocaleString()} publications`];
+  }
+
+  async function runExpertiseSearch(force){
+    const scope = (document.querySelector('input[name="expScope"]:checked') || {}).value || "cgspace";
+    if (scope === "cgspace" && !force){
+      notice("");
+      $("#out").onclick = e => {
+        const b = e.target.closest("[data-open],[data-openname]"); if (!b) return;
+        if (b.dataset.open){ setMode("email"); $("#q").value = b.dataset.open; }
+        else { setMode("name"); $("#q").value = b.dataset.openname; }
+        runSearch(0);
+      };
+      try { await runCGSpaceExpertise($("#expSel").value, $("#expFrom").value.trim(), parseKeywords($("#expKw").value)); }
+      catch (e) { showError(e); $("#out").innerHTML = ""; }
+      return;
+    }
+    notice("");
+    const kw = parseKeywords($("#expKw").value);
+    let role = $("#expSel").value;
+    if (!roster.length){ notice("Your people list is empty. Add people on the left (or search them by email and click Save), then search by expertise.", "info"); return; }
+    try { await ensureSummaries(force); }
+    catch (e) { showError(e); $("#out").innerHTML = ""; return; }
+    current = null;
+    let ranked0;
+    if (kw){
+      ranked0 = [];
+      try {
+        for (let i = 0; i < roster.length; i++){
+          $("#out").innerHTML = `<p class="toolbar status">Checking keywords: ${i + 1} of ${roster.length}…</p>`;
+          const smp = await textsFor(roster[i]);
+          const r = kwRelevance(kw, smp);
+          if (r) ranked0.push({ p: roster[i], r, s: smp.s });
+        }
+      } catch (e) { showError(e); $("#out").innerHTML = ""; return; }
+      role = `“${kw.label}”`;
+    } else {
+      ranked0 = roster.map(p => ({ p, r: relevance(p, role), s: p.summary || { total: p.count || 0 } })).filter(x => x.r);
+    }
+    setBalanceMax(ranked0);
+    const ranked = ranked0.sort(expCompare(expSortKey()));
+    const area = kw ? "Keyword search" : (EXPERTISE.find(x => x[0] === role) || [])[1];
+    const barOf = x => { const k = expSortKey(); return (k === "balanced" ? balanced(x.r, x.s) : k === "total" ? x.s.total : k === "area" ? areaEstimate(x.r, x.s) : x.r.score) || 0; };
+    const maxBar = Math.max(1, ...ranked.map(barOf));
+    let html = `<section class="person" aria-label="Expertise search">
+        <div><div class="who">${esc(role)}</div><div class="meta"><span>${area ? esc(area) + " · " : ""}searched across ${roster.length} people in your list</span></div></div>
+        <div class="total"><strong>${ranked.length}</strong>${ranked.length === 1 ? "person" : "people"}</div>
+      </section>
+      <p class="hint" style="margin-top:10px">${SORT_NOTE[expSortKey()]}</p>`;
+    if (!ranked.length){
+      html += `<p class="start">${kw ? "No one in your people list has these keywords in at least two of their analysed outputs." : "No one in your people list has this as an area of expertise. You can add it to someone by hand in their profile."}</p>`;
+    } else {
+      html += `<ol class="people-results">${ranked.map(({ p, r }, i) => {
+        const s = p.summary || {};
+        const yrs = s.from ? (s.from === s.to ? ` in ${s.from}` : `, ${s.from}–${s.to}`) : "";
+        const chips = (s.expertise || []).filter(x => !(p.expertiseHide || []).includes(x.role)).map(x => x.role)
+          .concat((p.expertiseAdd || []).filter(a => !(s.expertise || []).some(x => x.role.toLowerCase() === a.toLowerCase())));
+        const relTxt = r.manual && !r.auto ? "added by you" : `of outputs${r.manual ? ", confirmed by you" : ""}`;
+        return `<li>
+          <div><span class="rank">#${i + 1}${r.primary ? " · main area" : ""}</span>
+            <div class="pr-name">${esc(p.name)}</div>
+            <div class="pr-mail">${esc(p.email)}</div></div>
+          <div class="rel"><b>${bigFigure(r, s.total != null ? s : { total: 0 })[0]}</b><span>${bigFigure(r, s.total != null ? s : { total: 0 })[1]}${r.manual && r.auto ? ", confirmed by you" : ""}</span>
+            <div class="relbar"><i style="width:${Math.round(barOf({ r, s }) / maxBar * 100)}%"></i></div></div>
+          <div class="pr-body">
+            <p>${(s.total || 0).toLocaleString()} output${s.total === 1 ? "" : "s"} on CGSpace${yrs}.${s.themes && s.themes.length ? ` Main themes: ${esc(s.themes.join(", ").toLowerCase())}.` : ""}${s.countries && s.countries.length ? ` Countries: ${esc(s.countries.join(", "))}.` : ""}</p>
+            ${chips.length ? `<div class="xchips">${chips.map(c => `<span class="xchip${c.toLowerCase() === role.toLowerCase() ? " hit" : ""}">${esc(c)}</span>`).join("")}</div>` : ""}
+          </div>
+          <div class="pr-acts"><button type="button" class="btn ghost small" data-open="${esc(p.email)}">Open full profile</button></div>
+        </li>`;
+      }).join("")}</ol>`;
+    }
+    const oldest = Math.min(...roster.filter(p => p.summary).map(p => p.summary.builtAt));
+    if (isFinite(oldest)) html += `<p class="hint" style="margin-top:10px">Profiles last built ${new Date(oldest).toLocaleDateString()} or later. Use “Refresh all profiles” to rebuild them from CGSpace.</p>`;
+    $("#out").innerHTML = html;
+    $("#out").onclick = e => {
+      const b = e.target.closest("[data-open]"); if (!b) return;
+      setMode("email"); $("#q").value = b.dataset.open; runSearch(0);
+    };
+  }
+
+  async function loadProfile(){
+    const t = { person: current.person, by: current.by };
+    const SAMPLE_SORT = "dc.date.issued,DESC"; // always the newest outputs, whatever order the list below uses
+    const key = [nameKey(t), current.from, current.to].join("|");
+    const slot = () => $("#profile");
+    try {
+      if (!profileCache[key]){
+        const items = [], want = Math.min(current.totalElements, PROFILE_CAP);
+        for (let pg = 0; items.length < want; pg++){
+          const got = (await getPage(t, pg, 100, { sort: SAMPLE_SORT, from: current.from, to: current.to })).items;
+          if (!got.length) break;
+          items.push(...got);
+          if (got.length < 100) break;
+          await sleep(250);
+        }
+        profileCache[key] = buildProfile(items.slice(0, want), t);
+        const saved = t.person.email && roster.find(r => r.email === t.person.email);
+        if (!current.from && !current.to && t.by === "name"){
+          const s = summarize(items.slice(0, SUMMARY_CAP), current.totalElements);
+          putSummary(nameKey(t), s);
+          textCache[nameKey(t)] = { texts: items.slice(0, SUMMARY_CAP).map(itemText), total: current.totalElements };
+          if (saved && nameKey({ person: saved, by: "name" }) === nameKey(t)){ saved.summary = s; store.set("cgpf.roster", roster); }
+        }
+      }
+      const curKey = [nameKey(current), current.from, current.to].join("|");
+      if (curKey === key && slot()){ slot().innerHTML = profileHTML(profileCache[key]); wireExpertise(profileCache[key]); }
+    } catch (e) {
+      if (slot()) slot().innerHTML = `<p class="loading">Couldn't build the profile${e && e.status ? " (error " + e.status + ")" : ""}. The publication list below is unaffected.</p>`;
+    }
+  }
+
+  function buildProfile(items, t){
+    const n = items.length, p = t.person;
+    const years = {};
+    items.forEach(it => { const y = (it.date.match(/\d{4}/) || [])[0]; if (y) years[y] = (years[y] || 0) + 1; });
+    const ys = Object.keys(years).map(Number).sort((a, b) => a - b);
+    const recent = ys.length ? ys.filter(y => y >= ys[ys.length - 1] - 2).reduce((s, y) => s + years[y], 0) : 0;
+
+    // co-authors: drop the person themself
+    const needle = (p.name || "").toLowerCase();
+    let authors = tally(items, it => it.authors.filter(a => isPersonName(a) || isSelf(a, t)));
+    if (t.by === "name" && needle) authors = authors.filter(a => !isSelf(a.label, t));
+    else if (authors.length && authors[0].n >= n * 0.6) authors = authors.slice(1);
+
+    const types = tally(items, it => it.type ? [it.type] : []);
+    const subjects = tally(items, it => valuesFor(it.md, ["dcterms.subject", "cg.subject"]), sentence);
+    const countries = tally(items, it => valuesFor(it.md, ["cg.coverage.country"]));
+    const regions = tally(items, it => valuesFor(it.md, ["cg.coverage.region"]));
+    const institutions = tally(items, it => valuesFor(it.md, ["cg.contributor.affiliation"]));
+    const funders = tally(items, it => valuesFor(it.md, ["cg.contributor.donor"]));
+    const programmes = tally(items, it => valuesFor(it.md, ["cg.contributor.initiative", "cg.contributor.crp", "cg.contributor.programAccelerator"]));
+    const peer = items.filter(it => valuesFor(it.md, ["cg.reviewStatus"]).some(v => /peer/i.test(v) && !/internal/i.test(v))).length;
+    const reviewKnown = items.filter(it => valuesFor(it.md, ["cg.reviewStatus"]).length).length;
+    const open = items.filter(it => valuesFor(it.md, ["dcterms.accessRights"]).some(v => /open/i.test(v))).length;
+    const accessKnown = items.filter(it => valuesFor(it.md, ["dcterms.accessRights"]).length).length;
+    const firstAuthor = t.by === "name" && needle ? items.filter(it => it.authors[0] && isSelf(it.authors[0], t)).length : null;
+    const expertise = inferExpertise(items);
+
+    // narrative
+    const who = p.name || ("ORCID " + p.orcid);
+    const parts = [];
+    let s1 = `${who} has ${current.totalElements.toLocaleString()} output${current.totalElements === 1 ? "" : "s"} on CGSpace`;
+    if (ys.length) s1 += ys[0] === ys[ys.length - 1] ? `, all from ${ys[0]}` : `, published between ${ys[0]} and ${ys[ys.length - 1]}`;
+    if (types.length) s1 += `, mostly ${types[0].label.toLowerCase()}s (${pct(types[0].n, n)}%)`;
+    parts.push(s1 + ".");
+    if (subjects.length) parts.push(`The work centres on ${listTxt(subjects.slice(0, 4).map(x => x.label.toLowerCase()))}.`);
+    const geo = countries.length ? countries : regions;
+    if (geo.length) parts.push(`Geographically it focuses on ${listTxt(geo.slice(0, 4).map(x => x.label))}.`);
+    if (authors.length) parts.push(`Frequent collaborators include ${listTxt(authors.slice(0, 3).map(x => x.label))}.`);
+    if (funders.length) parts.push(`The most common funder${funders.length > 1 ? "s are" : " is"} ${listTxt(funders.slice(0, 2).map(x => x.label))}.`);
+    if (ys.length > 2 && recent) parts.push(`${pct(recent, n)}% of these outputs are from the last three years on record.`);
+
+    const tiles = [
+      [current.totalElements.toLocaleString(), "outputs on CGSpace"],
+      ys.length ? [ys[0] === ys[ys.length - 1] ? String(ys[0]) : `${ys[0]}–${ys[ys.length - 1]}`, "years active"] : null,
+      firstAuthor != null ? [`${pct(firstAuthor, n)}%`, "as first author"] : null,
+      reviewKnown ? [`${pct(peer, n)}%`, "peer reviewed"] : null,
+      accessKnown ? [`${pct(open, n)}%`, "open access"] : null,
+      authors.length ? [authors.length.toLocaleString(), "distinct co-authors"] : null
+    ].filter(Boolean);
+
+    return { n, total: current.totalElements, expertise, narrative: parts.join(" ").replace(/\.\./g, "."), tiles, years,
+      lists: [
+        ["Main themes", subjects], ["Countries", countries], ["Regions", regions], ["Output types", types],
+        ["Frequent co-authors", authors], ["Institutions on their outputs", institutions],
+        ["Funders", funders], ["CGIAR programmes & initiatives", programmes]
+      ] };
+  }
+
+  function profileHTML(pr){
+    const list = (title, rows) => {
+      if (!rows.length) return "";
+      const top = rows.slice(0, 6), max = top[0].n;
+      return `<div><h4>${esc(title)}</h4><ul class="plist">${top.map(r =>
+        `<li><span class="fill" style="width:calc((100% - 56px) * ${Math.max(0.04, r.n / max).toFixed(3)})"></span><span class="lbl" title="${esc(r.label)}">${esc(r.label)}</span><span class="n">${r.n}</span></li>`).join("")}</ul></div>`;
+    };
+    const ex = finalExpertise(pr).map(x => x.role);
+    const exLine = ex.length ? ` The publication record points to expertise as ${listTxt(ex.slice(0, 3).map(r => (/^[aeiou]/i.test(r) ? "an " : "a ") + (/^(MEL|One Health)/.test(r) ? r : r.charAt(0).toLowerCase() + r.slice(1))))}.` : "";
+    return `<h3>Profile</h3>
+      ${expertiseHTML(pr)}
+      <p class="lead">${esc(pr.narrative + exLine)}</p>
+      ${pr.total > pr.n ? `<p class="basis">Areas of expertise, themes, places and collaborators are based on the ${pr.n} most recent outputs.</p>` : ""}
+      <div class="tiles">${pr.tiles.map(([b, s]) => `<div class="tile"><b>${esc(b)}</b><span>${esc(s)}</span></div>`).join("")}</div>
+      ${Object.keys(pr.years).length > 1 ? yearChart(pr.years) : ""}
+      <div class="pgrid" style="margin-top:18px">${pr.lists.map(([tt, rows]) => list(tt, rows)).join("")}</div>`;
+  }
+
   async function exportAll(){
     const btn = $("#exportBtn"); btn.disabled = true;
     const t = { person: current.person, by: current.by };
@@ -615,8 +1524,7 @@ ol.results li{padding:16px 0;border-bottom:1px solid var(--line)}
     try {
       for (let pg = 0; rows.length < want; pg++){
         btn.textContent = `Collecting ${rows.length} of ${want}…`;
-        const data = await getJSON(buildUrl(t, pg, size, current.sort, current.from, current.to));
-        const { items } = parseResults(data);
+        const { items } = await getPage(t, pg, size, { sort: current.sort, from: current.from, to: current.to });
         if (!items.length) break;
         rows.push(...items);
         await sleep(250);
@@ -624,10 +1532,6 @@ ol.results li{padding:16px 0;border-bottom:1px solid var(--line)}
     } catch (e) { showError(e); }
     btn.disabled = false; btn.textContent = "Download all as CSV";
     if (!rows.length) return;
-    const years = {};
-    rows.forEach(r => { const y = (r.date.match(/\d{4}/) || ["?"])[0]; years[y] = (years[y] || 0) + 1; });
-    current.years = years;
-    $("#years").innerHTML = yearChart(years);
     const who = (current.person.name || current.person.orcid).replace(/[^\w]+/g, "-").replace(/^-|-$/g, "");
     download(`cgspace-${who || "author"}.csv`, toCSV([
       ["Title","Authors","Date issued","Type","DOI","CGSpace link","Citation"],
@@ -643,8 +1547,9 @@ ol.results li{padding:16px 0;border-bottom:1px solid var(--line)}
       for (let i = 0; i < roster.length; i++){
         btn.textContent = `Counting ${i + 1} of ${roster.length}…`;
         const p = roster[i];
-        const data = await getJSON(buildUrl({ person: p, by: "name" }, 0, 1, "", "", ""));
-        p.count = (parseResults(data).page.totalElements) || 0;
+        const t = { person: p, by: "name" };
+        p.count = isMulti(t) ? (await fetchMerged(t, "", "")).length
+          : (parseResults(await getJSON(buildUrl(t, 0, 1, "", "", ""))).page.totalElements) || 0;
         renderRoster();
         await sleep(300);
       }
@@ -679,7 +1584,20 @@ ol.results li{padding:16px 0;border-bottom:1px solid var(--line)}
     document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 2000);
   }
 
-  $("#searchForm").addEventListener("submit", e => { e.preventDefault(); runSearch(0); });
+  $("#searchForm").addEventListener("submit", e => { e.preventDefault(); $("#out").onclick = null; runSearch(0); });
+  $("#expForm").addEventListener("submit", e => { e.preventDefault(); runExpertiseSearch(false); });
+  $("#expRefresh").addEventListener("click", () => runExpertiseSearch(true));
+  $("#expKw").addEventListener("input", () => { $("#expSel").closest(".field").style.opacity = $("#expKw").value.trim() ? ".45" : ""; });
+  $("#expSort").addEventListener("change", () => { if ($("#out .people-results")) runExpertiseSearch(false); });
+  document.querySelectorAll('input[name="expScope"]').forEach(r => r.addEventListener("change", () => {
+    const list = r.value === "list" && r.checked;
+    if (!r.checked) return;
+    $("#expRefresh").hidden = !list;
+    $("#expFrom").disabled = list;
+    $("#expHint").textContent = list
+      ? "Searches the people in your people list. Their profiles are built from CGSpace the first time and then remembered in this browser."
+      : "Finds outputs on CGSpace about this area, then ranks their authors by how many of those outputs they wrote.";
+  }));
   renderRoster();
 })();
 </script>
